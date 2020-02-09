@@ -66,7 +66,7 @@ const HomePage = props => {
             />
           </Box>
         </Box>
-        <Box width="100%" maxWidth={960} mx="auto" px={10} paddingTop={3}>
+        <Box width="100%" maxWidth={960} mx="auto" px={[3, 10]} paddingTop={3}>
           <Heading size="xl" display="flex" alignItems="center">
             Routes <Box ml={3} as={FaRegMap} />
           </Heading>

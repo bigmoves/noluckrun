@@ -46,7 +46,9 @@ export const Mapbox = ({ title, dataUrl }) => {
 
   return (
     <Stack>
-      <Heading size="md">{title}</Heading>
+      <Heading size="md" my={3}>
+        {title}
+      </Heading>
       <Box
         width={[390, 475, 600, 936]}
         height={[250, 400, 400, 400]}
