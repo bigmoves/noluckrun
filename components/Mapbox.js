@@ -20,6 +20,7 @@ export const Mapbox = ({ title, dataUrl }) => {
       });
 
       map.on('load', () => {
+        map.addControl(new mapboxgl.FullscreenControl());
         map.addSource('route', { type: 'geojson', data: dataUrl });
         map.addLayer({
           id: 'route',

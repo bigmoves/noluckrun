@@ -11,6 +11,7 @@ import Layout from '../components/layout';
 
 import { FaRegMap, FaRegClock } from 'react-icons/fa';
 import Countdown from 'react-countdown';
+import Head from 'next/head';
 
 const MapboxNoSSR = dynamic(
   () => import('../components/mapbox').then(mod => mod.Mapbox),
@@ -33,6 +34,12 @@ const HomePage = props => {
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
   return (
     <Layout AuthUser={AuthUser}>
+      <Head>
+        <link
+          href="https://api.mapbox.com/mapbox-gl-js/v1.7.0/mapbox-gl.css"
+          rel="stylesheet"
+        />
+      </Head>
       <Box>
         <Box
           position="relative"
@@ -66,8 +73,8 @@ const HomePage = props => {
 
           <Box>
             <MapboxNoSSR title="5k" dataUrl="/5k.json" />
-            <MapboxNoSSR title="10k" dataUrl="/5k.json" />
-            <MapboxNoSSR title="15k" dataUrl="/5k.json" />
+            <MapboxNoSSR title="10k" dataUrl="/10k.json" />
+            <MapboxNoSSR title="15k" dataUrl="/15k.json" />
           </Box>
         </Box>
       </Box>
