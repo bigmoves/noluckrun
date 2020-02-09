@@ -28,6 +28,8 @@ import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo';
 import Router from 'next/router';
 import { checkout } from '../utils/stripe/checkout';
 
+import { FaRegClipboard } from 'react-icons/fa';
+
 const RegisterPage = ({ AuthUserInfo, query }) => {
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
 
@@ -74,9 +76,9 @@ const RegisterPage = ({ AuthUserInfo, query }) => {
           color="white"
           bg="gray"
         />
-        <Box width="100%" maxWidth={960} mx="auto" px={10}>
-          <Heading size="xl" color="secondary">
-            Register
+        <Box width="100%" maxWidth={960} mx="auto" px={10} paddingTop={3}>
+          <Heading size="xl" display="flex" alignItems="center">
+            Register <Box ml={3} as={FaRegClipboard} />
           </Heading>
 
           <Box as="form" onSubmit={e => e.preventDefault()} py={3} px={2}>

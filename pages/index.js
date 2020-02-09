@@ -9,6 +9,8 @@ import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo';
 
 import Layout from '../components/layout';
 
+import { FaRegMap } from 'react-icons/fa';
+
 const MapboxNoSSR = dynamic(
   () => import('../components/mapbox').then(mod => mod.Mapbox),
   {
@@ -31,9 +33,9 @@ const HomePage = props => {
           color="white"
           bg="gray"
         />
-        <Box width="100%" maxWidth={960} mx="auto" px={3}>
-          <Heading color="secondary" size="xl">
-            Routes
+        <Box width="100%" maxWidth={960} mx="auto" px={10} paddingTop={3}>
+          <Heading size="xl" display="flex" alignItems="center">
+            Routes <Box ml={3} as={FaRegMap} />
           </Heading>
 
           <Box>
