@@ -1,8 +1,8 @@
 import commonMiddleware from '../../utils/middleware/commonMiddleware';
 
-const stripe = require('stripe')('sk_test_wzFuTUyjGId2Ev6eJVjv4mEu');
-
 const handler = async (req, res) => {
+  const stripe = require('stripe')(process.env.STRIPE_SECRET_API_KEY);
+
   const session = await stripe.checkout.sessions.create({
     customer_email: req.body.email,
     payment_method_types: ['card'],

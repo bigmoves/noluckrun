@@ -7,7 +7,9 @@
     "FIREBASE_PUBLIC_API_KEY": "AIzaSyBHuH_TLs67gl6YQsw2BAwyT-wGz5oonAg",
     "FIREBASE_PRIVATE_KEY": "@firebase_private_key",
     "SESSION_SECRET_CURRENT": "@session_secret_current",
-    "SESSION_SECRET_PREVIOUS": "@session_secret_previous"
+    "SESSION_SECRET_PREVIOUS": "@session_secret_previous",
+    "STRIPE_PUBLIC_API_KEY": "pk_test_DxT4ScfTFOgqoKKB9T6CLqUJ",
+    "STRIPE_SECRET_API_KEY": "@stripe_secret_api_key"
   },
   "build": {
     "env": {
@@ -18,7 +20,9 @@
       "FIREBASE_PUBLIC_API_KEY": "AIzaSyBHuH_TLs67gl6YQsw2BAwyT-wGz5oonAg",
       "FIREBASE_PRIVATE_KEY": "@firebase_private_key",
       "SESSION_SECRET_CURRENT": "@session_secret_current",
-      "SESSION_SECRET_PREVIOUS": "@session_secret_previous"
+      "SESSION_SECRET_PREVIOUS": "@session_secret_previous",
+      "STRIPE_PUBLIC_API_KEY": "pk_test_DxT4ScfTFOgqoKKB9T6CLqUJ",
+      "STRIPE_SECRET_API_KEY": "@stripe_secret_api_key"
     }
   }
 }

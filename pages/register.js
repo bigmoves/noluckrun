@@ -1,7 +1,5 @@
 import Head from 'next/head';
 
-import axios from 'axios';
-
 import {
   Box,
   Button,
@@ -28,6 +26,7 @@ import Layout from '../components/layout';
 import withAuthUser from '../utils/pageWrappers/withAuthUser';
 import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo';
 import Router from 'next/router';
+import { checkout } from '../utils/stripe/checkout';
 
 const RegisterPage = ({ AuthUserInfo, query }) => {
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
@@ -111,29 +110,7 @@ const RegisterPage = ({ AuthUserInfo, query }) => {
             <Button
               type="submit"
               variantColor="purple"
-              onClick={() => {
-                const stripe = Stripe('pk_test_DxT4ScfTFOgqoKKB9T6CLqUJ');
-
-                axios('/api/checkout', {
-                  method: 'post',
-                  withCredentials: true,
-                  data: {
-                    email: AuthUser.email
-                  }
-                }).then(res => {
-                  console.log(res);
-                  stripe
-                    .redirectToCheckout({
-                      sessionId: res.data.sessionId
-                    })
-                    .then(function(result) {
-                      console.log(result);
-                      // If `redirectToCheckout` fails due to a browser or network
-                      // error, display the localized error message to your customer
-                      // using `result.error.message`.
-                    });
-                });
-              }}
+              onClick={() => checkout({ AuthUser })}
             >
               Checkout
             </Button>

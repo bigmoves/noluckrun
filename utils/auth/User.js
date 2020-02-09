@@ -4,7 +4,6 @@ export const createAuthUser = firebaseUser => {
   if (!firebaseUser || !firebaseUser.uid) {
     return null;
   }
-  debugger;
   return {
     id: get(firebaseUser, 'uid'),
     email: get(firebaseUser, 'email'),
