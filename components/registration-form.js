@@ -20,21 +20,17 @@ import { checkout } from '../utils/stripe/checkout';
 export default function RegistrationForm() {
   const { handleSubmit, errors, register } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [checkoutApiError, setCheckoutApiError] = useState(false);
 
-  console.log({ errors });
   function onSubmit(values) {
-    console.log(values);
     setIsSubmitting(true);
 
-    // checkout(values)
-    //   .then(() => {
-    //     setIsSubmitting(false);
-    //   })
-    //   .catch(() => {
-    //     setIsSubmitting(false);
-    //     setCheckoutApiError(true);
-    //   });
+    checkout(values)
+      .then(() => {
+        setIsSubmitting(false);
+      })
+      .catch(() => {
+        setIsSubmitting(false);
+      });
   }
 
   return (

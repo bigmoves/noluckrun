@@ -11,7 +11,11 @@ import {
   ModalCloseButton,
   ModalFooter,
   ModalHeader,
-  Image
+  Image,
+  Text,
+  Progress,
+  Stack,
+  Divider
 } from '@chakra-ui/core';
 
 import { get } from 'lodash/object';
@@ -76,6 +80,13 @@ const RegisterPage = ({ AuthUserInfo, query }) => {
           <Heading size="xl" display="flex" alignItems="center">
             Register <Box ml={3} as={FaRegClipboard} />
           </Heading>
+
+          <Stack my={4}>
+            <Text fontSize="md">50/200 Spots Available</Text>
+            <Progress color="purple" value={25} />
+          </Stack>
+
+          <Divider my={4} />
 
           <RegistrationForm />
         </Box>
