@@ -1,14 +1,10 @@
 import React from 'react';
 
-// import { GlobalStyle } from '../components/styled-components';
-
 import { Box, Flex, Button, Link } from '@chakra-ui/core';
 
-import logout from '../utils/auth/logout';
-
-import firebase from 'firebase/app';
-
-import Router from 'next/router';
+// import logout from '../utils/auth/logout';
+// import firebase from 'firebase/app';
+// import Router from 'next/router';
 
 const Layout = ({ AuthUser, children }) => (
   <Box>
@@ -49,6 +45,16 @@ const Layout = ({ AuthUser, children }) => (
         )} */}
     </Flex>
     {children}
+    <Flex
+      as="footer"
+      mt={8}
+      py={4}
+      justifyContent="center"
+      alignItems="center"
+      backgroundColor="purple.200"
+    >
+      Made with 💖 by Chad Miller
+    </Flex>
   </Box>
 );
 
