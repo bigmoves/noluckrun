@@ -67,6 +67,7 @@ const RegisterPage = ({ AuthUserInfo, query }) => {
           px={10}
           py={250}
           backgroundImage="url(/noluck-2.jpg)"
+          backgroundPosition={['40% 25%', '0% 25%']}
           backgroundSize="cover"
           color="white"
           bg="gray"
