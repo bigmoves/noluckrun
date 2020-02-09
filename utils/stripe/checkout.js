@@ -1,14 +1,12 @@
 import axios from 'axios';
 
-export const checkout = ({ AuthUser }) => {
+export const checkout = data => {
   const stripe = Stripe(process.env.STRIPE_PUBLIC_API_KEY);
 
   return axios('/api/checkout', {
     method: 'post',
     withCredentials: true,
-    data: {
-      email: AuthUser.email
-    }
+    data
   }).then(res => {
     stripe
       .redirectToCheckout({

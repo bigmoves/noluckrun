@@ -16,11 +16,10 @@ const Layout = ({ AuthUser, children }) => (
       <Link href="/" fontWeight="bold" fontSize={['sm', 'md', '3xl']}>
         2020 No Luck Run
       </Link>
-      <Flex alignItems="center">
-        <Link href="/register" fontWeight="bold" mr={10}>
-          Register
-        </Link>
-        {AuthUser ? (
+      <Button variantColor="purple" as="a" href="/register" fontWeight="bold">
+        Register
+      </Button>
+      {/* {AuthUser ? (
           <Button
             onClick={async () => {
               try {
@@ -47,8 +46,7 @@ const Layout = ({ AuthUser, children }) => (
               Sign in
             </Button>
           </>
-        )}
-      </Flex>
+        )} */}
     </Flex>
     {children}
   </Box>

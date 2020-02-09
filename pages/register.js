@@ -4,11 +4,6 @@ import {
   Box,
   Button,
   Heading,
-  Input,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  Radio,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -22,23 +17,23 @@ import {
 import { get } from 'lodash/object';
 
 import Layout from '../components/layout';
+import RegistrationForm from '../components/registration-form';
 
 import withAuthUser from '../utils/pageWrappers/withAuthUser';
 import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo';
 import Router from 'next/router';
-import { checkout } from '../utils/stripe/checkout';
 
 import { FaRegClipboard } from 'react-icons/fa';
 
 const RegisterPage = ({ AuthUserInfo, query }) => {
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
 
-  const firstNameMaybe =
-    (AuthUser && AuthUser.displayName && AuthUser.displayName.split(' ')[0]) ||
-    '';
-  const lastNameMaybe =
-    (AuthUser && AuthUser.displayName && AuthUser.displayName.split(' ')[1]) ||
-    '';
+  // const firstNameMaybe =
+  //   (AuthUser && AuthUser.displayName && AuthUser.displayName.split(' ')[0]) ||
+  //   '';
+  // const lastNameMaybe =
+  //   (AuthUser && AuthUser.displayName && AuthUser.displayName.split(' ')[1]) ||
+  //   '';
 
   return (
     <Layout AuthUser={AuthUser}>
@@ -76,47 +71,12 @@ const RegisterPage = ({ AuthUserInfo, query }) => {
           color="white"
           bg="gray"
         />
-        <Box width="100%" maxWidth={960} mx="auto" px={10} paddingTop={3}>
+        <Box width="100%" maxWidth={960} mx="auto" px={[3, 10]} paddingTop={3}>
           <Heading size="xl" display="flex" alignItems="center">
             Register <Box ml={3} as={FaRegClipboard} />
           </Heading>
 
-          <Box as="form" onSubmit={e => e.preventDefault()} py={3} px={2}>
-            <FormControl mb={4}>
-              <FormLabel htmlFor="first-name">First Name</FormLabel>
-              <Input
-                id="first-name"
-                name="first"
-                defaultValue={firstNameMaybe}
-              />
-            </FormControl>
-            <FormControl mb={4}>
-              <FormLabel htmlFor="last-name">Last Name</FormLabel>
-              <Input id="last-name" name="last" defaultValue={lastNameMaybe} />
-            </FormControl>
-
-            <FormControl mb={4}>
-              <FormLabel htmlFor="email">Email</FormLabel>
-              <Input id="email" name="email" type="email" />
-            </FormControl>
-
-            <FormControl as="fieldset" mb={4}>
-              <FormLabel as="legend">Select route</FormLabel>
-              <RadioGroup defaultValue="5k">
-                <Radio value="5k">5k</Radio>
-                <Radio value="10k">10k</Radio>
-                <Radio value="15k">15k</Radio>
-              </RadioGroup>
-            </FormControl>
-
-            <Button
-              type="submit"
-              variantColor="purple"
-              onClick={() => checkout({ AuthUser })}
-            >
-              Checkout
-            </Button>
-          </Box>
+          <RegistrationForm />
         </Box>
       </Box>
     </Layout>
