@@ -1,3 +1,3 @@
-export { Section } from './Section';
-export { SectionIntro } from './SectionIntro';
-export * from './styled-components';
+export { Layout } from './layout';
+export { Mapbox } from './Mapbox';
+export { theme } from './theme';

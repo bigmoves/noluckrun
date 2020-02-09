@@ -1,41 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
-import styled from 'styled-components';
 
-import { small, medium, large } from './styled-components';
+import { Box, Stack, Heading } from '@chakra-ui/core';
 
 mapboxgl.accessToken =
   'pk.eyJ1IjoiY2hhZHRtaWxsZXIiLCJhIjoiY2s2YXpoY3V2MHc0YTNsbGp2c3h0NGY0OSJ9.9cpgobp96NPvaEngpEZVAA';
-
-const MapCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-`;
-
-const MapWrapper = styled.div`
-  border: 2px solid #333;
-  border-radius: 5px;
-
-  &:not(last-child) {
-    margin-right: 10px;
-  }
-`;
-
-const MapContainer = styled.div`
-  ${small`
-      width: 300px;
-      height: 200px
-  `}
-  ${medium`
-      width: 425px;
-      height: 300px
-  `}
-  ${large`
-      width: 425px;
-      height: 300px
-  `}
-`;
 
 export const Mapbox = ({ title, dataUrl }) => {
   const [map, setMap] = useState(null);
@@ -75,11 +44,15 @@ export const Mapbox = ({ title, dataUrl }) => {
   }, [map]);
 
   return (
-    <MapCard>
-      <h3>{title}</h3>
-      <MapWrapper>
-        <MapContainer ref={el => (mapContainerEl = el)} />
-      </MapWrapper>
-    </MapCard>
+    <Stack>
+      <Heading size="md">{title}</Heading>
+      <Box
+        width={[390, 475, 600, 936]}
+        height={[250, 400, 400, 400]}
+        border="2px solid #333"
+        borderRadius={1}
+        ref={el => (mapContainerEl = el)}
+      />
+    </Stack>
   );
 };

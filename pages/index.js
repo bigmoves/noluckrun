@@ -1,46 +1,54 @@
-import { GlobalStyle } from '../components/styled-components';
-
-import { SectionIntro, Section, small, medium, large } from '../components';
-import styled from 'styled-components';
-
 import dynamic from 'next/dynamic';
 
-const DynamicComponentWithNoSSR = dynamic(
-  () => import('../components/Mapbox').then(mod => mod.Mapbox),
+import { Box, Heading } from '@chakra-ui/core';
+
+import { get } from 'lodash/object';
+
+import withAuthUser from '../utils/pageWrappers/withAuthUser';
+import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo';
+
+import Layout from '../components/layout';
+
+const MapboxNoSSR = dynamic(
+  () => import('../components/mapbox').then(mod => mod.Mapbox),
   {
     ssr: false
   }
 );
 
-const MapLayout = styled.div`
-  display: flex;
-  margin-top: 10px;
-
-  ${small`flex-direction: column;`}
-  ${medium`flex-direction: row;`}
-  ${large`flex-direction: row;`}
-`;
-
-function HomePage() {
+const HomePage = props => {
+  const { AuthUserInfo } = props;
+  const AuthUser = get(AuthUserInfo, 'AuthUser', null);
   return (
-    <div>
-      <GlobalStyle />
+    <Layout AuthUser={AuthUser}>
+      <Box>
+        <Box
+          px={10}
+          py={250}
+          backgroundImage="url(/noluck-1.jpg)"
+          backgroundPosition={['40% 25%', '0% 25%']}
+          backgroundSize="cover"
+          color="white"
+          bg="gray"
+        />
+        <Box width="100%" maxWidth={960} mx="auto" px={3}>
+          <Heading color="secondary" size="xl">
+            Routes
+          </Heading>
 
-      <SectionIntro image="/noluck-1.jpg" />
-
-      <Section
-        title="Routes"
-        description="Um where do we go?"
-        image="/noluck-2.jpg"
-      >
-        <MapLayout>
-          <DynamicComponentWithNoSSR title="5k" dataUrl="/5k.json" />
-          <DynamicComponentWithNoSSR title="10k" dataUrl="/5k.json" />
-          <DynamicComponentWithNoSSR title="15k" dataUrl="/5k.json" />
-        </MapLayout>
-      </Section>
-    </div>
+          <Box>
+            <MapboxNoSSR title="5k" dataUrl="/5k.json" />
+            <MapboxNoSSR title="10k" dataUrl="/5k.json" />
+            <MapboxNoSSR title="15k" dataUrl="/5k.json" />
+          </Box>
+        </Box>
+      </Box>
+    </Layout>
   );
-}
+};
 
-export default HomePage;
+HomePage.defaultProps = {
+  AuthUserInfo: null
+};
+
+export default withAuthUser(withAuthUserInfo(HomePage));
