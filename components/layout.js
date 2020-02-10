@@ -2,47 +2,54 @@ import React from 'react';
 
 import { Box, Flex, Button, Link } from '@chakra-ui/core';
 
-// import logout from '../utils/auth/logout';
-// import firebase from 'firebase/app';
-// import Router from 'next/router';
+import logout from '../utils/auth/logout';
+import firebase from 'firebase/app';
+import Router from 'next/router';
 
-const Layout = ({ AuthUser, children }) => (
+const renderAuthButtons = AuthUser => {
+  return AuthUser ? (
+    <Button
+      onClick={async () => {
+        try {
+          await logout();
+          Router.push('/');
+        } catch (e) {
+          console.error(e);
+        }
+      }}
+      variantColor="purple"
+    >
+      Logout
+    </Button>
+  ) : (
+    <>
+      <Button
+        onClick={() =>
+          firebase
+            .auth()
+            .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+        }
+        variantColor="purple"
+      >
+        Sign in
+      </Button>
+    </>
+  );
+};
+
+const Layout = ({ AuthUser, adminPage, children }) => (
   <Box>
     <Flex height={50} alignItems="center" justifyContent="space-between" px={2}>
       <Link href="/" fontWeight="bold" fontSize={['sm', 'md', '3xl']}>
         2020 No Luck Run
       </Link>
-      <Button variantColor="purple" as="a" href="/register" fontWeight="bold">
-        Register
-      </Button>
-      {/* {AuthUser ? (
-          <Button
-            onClick={async () => {
-              try {
-                await logout();
-                Router.push('/');
-              } catch (e) {
-                console.error(e);
-              }
-            }}
-            variantColor="purple"
-          >
-            Logout
-          </Button>
-        ) : (
-          <>
-            <Button
-              onClick={() =>
-                firebase
-                  .auth()
-                  .signInWithPopup(new firebase.auth.GoogleAuthProvider())
-              }
-              variantColor="purple"
-            >
-              Sign in
-            </Button>
-          </>
-        )} */}
+      {adminPage ? (
+        renderAuthButtons(AuthUser)
+      ) : (
+        <Button variantColor="purple" as="a" href="/register" fontWeight="bold">
+          Register
+        </Button>
+      )}
     </Flex>
     {children}
     <Flex

@@ -1,18 +1,15 @@
 import { Badge, Box, Heading, Flex } from '@chakra-ui/core';
-
 import Layout from '../components/layout';
-
 import withAuthUser from '../utils/pageWrappers/withAuthUser';
 import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo';
-
 import { FaRegClipboard } from 'react-icons/fa';
-
 import { useTable } from 'react-table';
-
 import styled from '@emotion/styled';
 import axios from 'axios';
-
+import BarChart from '../components/bar-chart';
+import { keys, get } from 'lodash/object';
 import { FaRegCheckCircle, FaPoo } from 'react-icons/fa';
+import Router from 'next/router';
 
 const TableStyles = styled.div`
   overflow-x: auto;
@@ -86,7 +83,27 @@ function Table({ columns, data }) {
   );
 }
 
-const AdminPage = ({ registrations = [] }) => {
+const getCountData = (data, key) => {
+  const counts = data.reduce((pv, cv) => {
+    if (pv[cv[key]]) {
+      pv[cv[key]].count = pv[cv[key]].count + 1;
+      return pv;
+    }
+
+    return {
+      ...pv,
+      [cv[key]]: { [key]: cv[key], count: 1 }
+    };
+  }, {});
+
+  return keys(counts)
+    .filter(i => counts[i][key])
+    .map(i => counts[i]);
+};
+
+const AdminPage = ({ AuthUserInfo, registrations = [] }) => {
+  const AuthUser = get(AuthUserInfo, 'AuthUser', null);
+
   const columns = [
     {
       Header: 'First name',
@@ -98,7 +115,8 @@ const AdminPage = ({ registrations = [] }) => {
     },
     {
       Header: 'Email',
-      accessor: 'email'
+      accessor: 'email',
+      Cell: ({ cell: { value } }) => <Badge variantColor="teal">{value}</Badge>
     },
     {
       Header: 'T-Shirt Size',
@@ -128,7 +146,7 @@ const AdminPage = ({ registrations = [] }) => {
   ];
 
   return (
-    <Layout>
+    <Layout AuthUser={AuthUser}>
       <Box>
         <Box
           px={10}
@@ -147,6 +165,27 @@ const AdminPage = ({ registrations = [] }) => {
           <TableStyles>
             <Table columns={columns} data={registrations} />
           </TableStyles>
+
+          <Flex flexDirection={['column', 'row']} justifyContent="center">
+            <BarChart
+              width={400}
+              height={300}
+              xValueAccessor={d => d.routeName}
+              yValueAccessor={d => d.count}
+              data={getCountData(registrations, 'routeName')}
+              xAxisLabel="Routes"
+              yAxisLabel="Count"
+            />
+            <BarChart
+              width={400}
+              height={300}
+              xValueAccessor={d => d.shirtSize}
+              yValueAccessor={d => d.count}
+              data={getCountData(registrations, 'shirtSize')}
+              xAxisLabel="T-Shirt Sizes"
+              yAxisLabel="Count"
+            />
+          </Flex>
         </Box>
       </Box>
     </Layout>
@@ -158,6 +197,9 @@ AdminPage.defaultProps = {
 };
 
 AdminPage.getInitialProps = async ctx => {
+  const AuthUserInfo = get(ctx, 'myCustomData.AuthUserInfo', null);
+  const AuthUser = get(AuthUserInfo, 'AuthUser', null);
+
   const registrations = await axios
     .get(
       '/api/registrations',
@@ -172,7 +214,20 @@ AdminPage.getInitialProps = async ctx => {
     )
     .then(res => res.data);
 
-  return { registrations };
+  const redirectOnError = () => {
+    if (process.browser) {
+      Router.push('/');
+    } else {
+      ctx.res.writeHead(302, { Location: '/' });
+      ctx.res.end();
+    }
+  };
+
+  //   if (!AuthUser) {
+  //     return redirectOnError();
+  //   }
+
+  return { AuthUserInfo, registrations };
 };
 
 export default withAuthUser(withAuthUserInfo(AdminPage));
