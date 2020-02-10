@@ -31,6 +31,11 @@ const handler = async (req, res) => {
     customer_email: req.body.email,
     payment_method_types: ['card'],
     line_items: [items[req.body.routeName]],
+    metadata: {
+      shirtSize: req.body.shirtSize,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName
+    },
     success_url:
       process.env.NODE_ENV === 'production'
         ? 'https://noluckrun.now.sh/register?checkoutComplete=true'

@@ -13,15 +13,15 @@ import {
   StatNumber
 } from '@chakra-ui/core';
 
-import { keys } from 'lodash/object';
-
 import { checkout } from '../utils/stripe/checkout';
+import axios from 'axios';
+import Router from 'next/router';
 
 export default function RegistrationForm() {
   const { handleSubmit, errors, register } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function onSubmit(values) {
+  function onPayNow(values) {
     setIsSubmitting(true);
 
     checkout(values)
@@ -33,8 +33,16 @@ export default function RegistrationForm() {
       });
   }
 
+  function onPayLater(values) {
+    setIsSubmitting(true);
+    axios.post('/api/register', values).then(() => {
+      setIsSubmitting(false);
+      Router.push('/register?checkoutComplete=true');
+    });
+  }
+
   return (
-    <Box as="form" onSubmit={handleSubmit(onSubmit)} py={3} px={2}>
+    <Box as="form" onSubmit={handleSubmit(onPayNow)} py={3} px={2}>
       <FormControl mb={4} isInvalid={errors.firstName}>
         <FormLabel htmlFor="firstName">First Name</FormLabel>
         <Input
@@ -102,8 +110,21 @@ export default function RegistrationForm() {
         <StatNumber>$25.00</StatNumber>
       </Stat>
 
-      <Button type="submit" variantColor="purple" isLoading={isSubmitting}>
-        Checkout
+      <Button
+        type="submit"
+        variantColor="purple"
+        isLoading={isSubmitting}
+        mr={4}
+      >
+        Pay now
+      </Button>
+      <Button
+        variant="outline"
+        variantColor="purple"
+        isLoading={isSubmitting}
+        onClick={handleSubmit(onPayLater)}
+      >
+        Pay at event
       </Button>
     </Box>
   );

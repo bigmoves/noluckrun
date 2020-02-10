@@ -86,4 +86,4 @@ HomePage.defaultProps = {
   AuthUserInfo: null
 };
 
-export default withAuthUser(withAuthUserInfo(HomePage));
+export default HomePage;

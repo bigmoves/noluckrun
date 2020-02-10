@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 
-export const addRegistration = registration => {
+export const getRegistrations = () => {
   const firebasePrivateKey =
     process.env.NODE_ENV === 'production'
       ? Buffer.from(process.env.FIREBASE_PRIVATE_KEY, 'base64').toString(
@@ -23,10 +23,10 @@ export const addRegistration = registration => {
   return admin
     .firestore()
     .collection('registrations')
-    .add(registration)
-    .then(ref => {
-      return {
-        id: ref.id
-      };
+    .get()
+    .then(snapshot => {
+      let docs = [];
+      snapshot.forEach(doc => docs.push(doc.data()));
+      return docs;
     });
 };

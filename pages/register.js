@@ -26,10 +26,11 @@ import RegistrationForm from '../components/registration-form';
 import withAuthUser from '../utils/pageWrappers/withAuthUser';
 import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo';
 import Router from 'next/router';
+import axios from 'axios';
 
 import { FaRegClipboard } from 'react-icons/fa';
 
-const RegisterPage = ({ AuthUserInfo, query }) => {
+const RegisterPage = ({ AuthUserInfo, query, registrations = [] }) => {
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
 
   // const firstNameMaybe =
@@ -82,8 +83,13 @@ const RegisterPage = ({ AuthUserInfo, query }) => {
           </Heading>
 
           <Stack my={4}>
-            <Text fontSize="md">50/200 Spots Available</Text>
-            <Progress color="purple" value={25} />
+            <Text fontSize="md">
+              {200 - registrations.length}/200 Spots Available
+            </Text>
+            <Progress
+              color="purple"
+              value={((200 - registrations.length) / 200) * 100}
+            />
           </Stack>
 
           <Divider my={4} />
@@ -100,7 +106,21 @@ RegisterPage.defaultProps = {
 };
 
 RegisterPage.getInitialProps = async ctx => {
-  return { query: ctx.query };
+  const registrations = await axios
+    .get(
+      '/api/registrations',
+      ctx.req
+        ? {
+            baseURL:
+              process.env.NODE_ENV === 'production'
+                ? 'https://noluckrun.now.sh'
+                : 'http://localhost:3000'
+          }
+        : {}
+    )
+    .then(res => res.data);
+
+  return { registrations, query: ctx.query };
 };
 
-export default withAuthUser(withAuthUserInfo(RegisterPage));
+export default RegisterPage;
