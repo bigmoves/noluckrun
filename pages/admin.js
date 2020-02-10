@@ -5,8 +5,7 @@ import {
   Flex,
   Stat,
   StatLabel,
-  StatNumber,
-  Divider
+  StatNumber
 } from '@chakra-ui/core';
 import Layout from '../components/layout';
 import withAuthUser from '../utils/pageWrappers/withAuthUser';
@@ -16,9 +15,10 @@ import { useTable } from 'react-table';
 import styled from '@emotion/styled';
 import axios from 'axios';
 import BarChart from '../components/bar-chart';
-import { keys, get } from 'lodash/object';
+import { get } from 'lodash/object';
 import { FaRegCheckCircle, FaPoo } from 'react-icons/fa';
 import Router from 'next/router';
+import { getCountData } from '../utils/charts';
 
 const TableStyles = styled.div`
   overflow-x: auto;
@@ -91,24 +91,6 @@ function Table({ columns, data }) {
     </table>
   );
 }
-
-const getCountData = (data, key) => {
-  const counts = data.reduce((pv, cv) => {
-    if (pv[cv[key]]) {
-      pv[cv[key]].count = pv[cv[key]].count + 1;
-      return pv;
-    }
-
-    return {
-      ...pv,
-      [cv[key]]: { [key]: cv[key], count: 1 }
-    };
-  }, {});
-
-  return keys(counts)
-    .filter(i => counts[i][key])
-    .map(i => counts[i]);
-};
 
 const AdminPage = ({ AuthUserInfo, registrations = [] }) => {
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);

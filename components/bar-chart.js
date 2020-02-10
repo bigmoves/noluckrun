@@ -13,7 +13,8 @@ export default ({
   xValueAccessor,
   data,
   yAxisLabel,
-  xAxisLabel
+  xAxisLabel,
+  selected
 }) => {
   if (!data || !data.length) {
     return null;
@@ -62,7 +63,11 @@ export default ({
               y={barY}
               width={barWidth}
               height={barHeight}
-              fill="rgba(23, 233, 217, .5)"
+              fill={
+                selected === xValueAccessor(d)
+                  ? 'rgba(128, 90, 213, .9)'
+                  : 'rgba(23, 233, 217, .5)'
+              }
             />
           );
         })}

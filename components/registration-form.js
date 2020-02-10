@@ -37,7 +37,7 @@ export default function RegistrationForm() {
     setIsSubmitting(true);
     axios.post('/api/register', values).then(() => {
       setIsSubmitting(false);
-      Router.push('/register?checkoutComplete=true');
+      Router.push(`/register?checkoutComplete=true&route=${values.routeName}`);
     });
   }
 

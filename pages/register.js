@@ -21,7 +21,9 @@ import {
 import { get } from 'lodash/object';
 
 import Layout from '../components/layout';
+import BarChart from '../components/bar-chart';
 import RegistrationForm from '../components/registration-form';
+import { getCountData } from '../utils/charts';
 
 import Router from 'next/router';
 import axios from 'axios';
@@ -44,11 +46,30 @@ const RegisterPage = ({ AuthUserInfo, query, registrations = [] }) => {
           <ModalContent>
             <ModalHeader>You're all set 🎉</ModalHeader>
             <ModalCloseButton />
-            <Image src="/noluck-3.jpg" alt="You're all set" />
-            <ModalBody textAlign="center">See you on March 17th!</ModalBody>
+            <ModalBody
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+            >
+              <Image src="/noluck-3.jpg" alt="You're all set" mb={4} />
+              <Text fontWeight="bold" mb={4}>
+                See you on March 17th!
+              </Text>
+              <Text>Here's the breakdown so far...</Text>
+              <BarChart
+                width={400}
+                height={300}
+                xValueAccessor={d => d.routeName}
+                yValueAccessor={d => d.count}
+                data={getCountData(registrations, 'routeName')}
+                xAxisLabel="Routes"
+                yAxisLabel="Count"
+                selected={query.route}
+              />
+            </ModalBody>
             <ModalFooter>
-              <Button variantColor="blue" onClick={() => Router.push('/')}>
-                Close
+              <Button variantColor="purple" onClick={() => Router.push('/')}>
+                So stoked!
               </Button>
             </ModalFooter>
           </ModalContent>
@@ -62,7 +83,7 @@ const RegisterPage = ({ AuthUserInfo, query, registrations = [] }) => {
         <Box
           px={10}
           py={250}
-          backgroundImage="url(/noluck-2.jpg)"
+          backgroundImage="url(/noluck-4.jpg)"
           backgroundPosition={['40% 25%', '0% 25%']}
           backgroundSize="cover"
           color="white"

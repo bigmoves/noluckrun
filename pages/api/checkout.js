@@ -39,7 +39,7 @@ const handler = async (req, res) => {
     success_url:
       process.env.NODE_ENV === 'production'
         ? 'https://noluckrun.now.sh/register?checkoutComplete=true'
-        : 'http://localhost:3000/register?checkoutComplete=true',
+        : `http://localhost:3000/register?checkoutComplete=true&${req.body.routeName}`,
     cancel_url:
       process.env.NODE_ENV === 'production'
         ? 'https://noluckrun.now.sh'
