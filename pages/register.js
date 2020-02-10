@@ -23,8 +23,6 @@ import { get } from 'lodash/object';
 import Layout from '../components/layout';
 import RegistrationForm from '../components/registration-form';
 
-import withAuthUser from '../utils/pageWrappers/withAuthUser';
-import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo';
 import Router from 'next/router';
 import axios from 'axios';
 
@@ -32,13 +30,6 @@ import { FaRegClipboard } from 'react-icons/fa';
 
 const RegisterPage = ({ AuthUserInfo, query, registrations = [] }) => {
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
-
-  // const firstNameMaybe =
-  //   (AuthUser && AuthUser.displayName && AuthUser.displayName.split(' ')[0]) ||
-  //   '';
-  // const lastNameMaybe =
-  //   (AuthUser && AuthUser.displayName && AuthUser.displayName.split(' ')[1]) ||
-  //   '';
 
   return (
     <Layout AuthUser={AuthUser}>

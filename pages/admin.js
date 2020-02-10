@@ -1,8 +1,17 @@
-import { Badge, Box, Heading, Flex } from '@chakra-ui/core';
+import {
+  Badge,
+  Box,
+  Heading,
+  Flex,
+  Stat,
+  StatLabel,
+  StatNumber,
+  Divider
+} from '@chakra-ui/core';
 import Layout from '../components/layout';
 import withAuthUser from '../utils/pageWrappers/withAuthUser';
 import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo';
-import { FaRegClipboard } from 'react-icons/fa';
+import { FaRegAddressBook } from 'react-icons/fa';
 import { useTable } from 'react-table';
 import styled from '@emotion/styled';
 import axios from 'axios';
@@ -159,14 +168,19 @@ const AdminPage = ({ AuthUserInfo, registrations = [] }) => {
         />
         <Box width="100%" maxWidth={960} mx="auto" px={[3, 10]} paddingTop={3}>
           <Heading size="xl" display="flex" alignItems="center" mb={4}>
-            Admin <Box ml={3} as={FaRegClipboard} />
+            Admin <Box ml={3} as={FaRegAddressBook} />
           </Heading>
 
-          <TableStyles>
-            <Table columns={columns} data={registrations} />
-          </TableStyles>
+          <Stat mb={4}>
+            <StatLabel>Participants:</StatLabel>
+            <StatNumber>{registrations.length}</StatNumber>
+          </Stat>
 
-          <Flex flexDirection={['column', 'row']} justifyContent="center">
+          <Flex
+            flexDirection={['column', 'row']}
+            justifyContent="center"
+            mb={4}
+          >
             <BarChart
               width={400}
               height={300}
@@ -186,6 +200,10 @@ const AdminPage = ({ AuthUserInfo, registrations = [] }) => {
               yAxisLabel="Count"
             />
           </Flex>
+
+          <TableStyles>
+            <Table columns={columns} data={registrations} />
+          </TableStyles>
         </Box>
       </Box>
     </Layout>

@@ -1,14 +1,7 @@
 import dynamic from 'next/dynamic';
-
 import { Box, Heading, Flex } from '@chakra-ui/core';
-
 import { get } from 'lodash/object';
-
-import withAuthUser from '../utils/pageWrappers/withAuthUser';
-import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo';
-
 import Layout from '../components/layout';
-
 import { FaRegMap, FaRegClock } from 'react-icons/fa';
 import Countdown from 'react-countdown';
 import Head from 'next/head';
