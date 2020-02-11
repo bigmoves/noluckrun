@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Box, Flex, Button, Link as ChakraLink } from '@chakra-ui/core';
+import { FaCat } from 'react-icons/fa';
 
 import logout from '../utils/auth/logout';
 import firebase from 'firebase/app';
@@ -42,8 +43,14 @@ const Layout = ({ AuthUser, adminPage, children }) => (
   <Box>
     <Flex height={50} alignItems="center" justifyContent="space-between" px={2}>
       <Link href="/">
-        <ChakraLink href="/" fontWeight="bold" fontSize={['sm', 'md', '3xl']}>
-          2020 No Luck Run
+        <ChakraLink
+          href="/"
+          fontWeight="bold"
+          fontSize={['md', '3xl']}
+          display="flex"
+          alignItems="center"
+        >
+          2020 No Luck Run <Box as={FaCat} ml={4} />
         </ChakraLink>
       </Link>
       {adminPage ? (
