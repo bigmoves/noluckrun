@@ -9,6 +9,7 @@ mapboxgl.accessToken =
   'pk.eyJ1IjoiY2hhZHRtaWxsZXIiLCJhIjoiY2s2YXpoY3V2MHc0YTNsbGp2c3h0NGY0OSJ9.9cpgobp96NPvaEngpEZVAA';
 
 export const Mapbox = ({ title, dataUrl }) => {
+  const [fullscreen, setFullscreen] = useState(false);
   const [map, setMap] = useState(null);
   let mapContainerEl = useRef(null);
 
@@ -45,18 +46,27 @@ export const Mapbox = ({ title, dataUrl }) => {
     if (!map) initializeMap({ setMap, mapContainerEl });
   }, [map]);
 
+  const fullscrenOnlyProps = {
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0
+  };
+
   return (
     <Stack>
       <Heading size="md" my={3}>
         {title}
       </Heading>
       <Box
-        position="relative"
-        width={[390, 475, 600, 936]}
-        height={[250, 400, 400, 400]}
+        position={fullscreen ? 'fixed' : 'relative'}
+        width={fullscreen ? '100%' : [390, 475, 600, 936]}
+        height={fullscreen ? '100%' : [250, 400, 400, 400]}
+        zIndex={fullscreen ? 1000 : 1}
         border="2px solid #333"
         borderRadius={1}
         ref={el => (mapContainerEl = el)}
+        {...(fullscreen && { ...fullscrenOnlyProps })}
       >
         <IconButton
           variantColor="purple"
@@ -65,7 +75,12 @@ export const Mapbox = ({ title, dataUrl }) => {
           right={3}
           icon={MdFullscreen}
           zIndex={100}
-          onClick={() => map.getContainer().requestFullscreen()}
+          onClick={() => {
+            setFullscreen(!fullscreen);
+            setTimeout(() => {
+              map.resize();
+            }, 100);
+          }}
         />
       </Box>
     </Stack>
