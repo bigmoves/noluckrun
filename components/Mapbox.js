@@ -60,7 +60,7 @@ export const Mapbox = ({ title, dataUrl }) => {
       </Heading>
       <Box
         position={fullscreen ? 'fixed' : 'relative'}
-        width={fullscreen ? '100%' : [390, 475, 600, 936]}
+        width={fullscreen ? '100%' : [390, 475, 600, 880]}
         height={fullscreen ? '100%' : [250, 400, 400, 400]}
         zIndex={fullscreen ? 1000 : 1}
         border="2px solid #333"

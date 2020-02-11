@@ -1,10 +1,11 @@
 import dynamic from 'next/dynamic';
-import { Box, Heading, Flex } from '@chakra-ui/core';
+import { Box, Heading, Flex, Image } from '@chakra-ui/core';
 import { get } from 'lodash/object';
 import Layout from '../components/layout';
 import { FaRegMap, FaRegClock } from 'react-icons/fa';
 import Countdown from 'react-countdown';
 import Head from 'next/head';
+import { useState } from 'react';
 
 const MapboxNoSSR = dynamic(
   () => import('../components/mapbox').then(mod => mod.Mapbox),
@@ -23,8 +24,19 @@ const countdownRenderer = ({ days, hours, minutes, seconds }) => {
 };
 
 const HomePage = props => {
+  const [selectedImage, setSelectedImage] = useState('/noluck-1.jpg');
   const { AuthUserInfo } = props;
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
+
+  const images = [
+    '/noluck-1.jpg',
+    '/noluck-2.jpg',
+    '/noluck-3.jpg',
+    '/noluck-4.jpg',
+    '/noluck-5.jpg',
+    '/noluck-6.jpg'
+  ];
+
   return (
     <Layout AuthUser={AuthUser}>
       <Head>
@@ -38,7 +50,7 @@ const HomePage = props => {
           position="relative"
           px={10}
           py={250}
-          backgroundImage="url(/noluck-1.jpg)"
+          backgroundImage={`url(${selectedImage})`}
           backgroundPosition={['40% 25%', '0% 25%']}
           backgroundSize="cover"
           color="white"
@@ -60,6 +72,23 @@ const HomePage = props => {
           </Box>
         </Box>
         <Box width="100%" maxWidth={960} mx="auto" px={[3, 10]} paddingTop={3}>
+          <Flex overflowX="auto" mb={4}>
+            {images.map(src => (
+              <Image
+                key={src}
+                src={src}
+                width={150}
+                height={100}
+                mr={4}
+                opacity={selectedImage === src ? 1 : 0.75}
+                border={
+                  selectedImage === src ? '3px solid purple' : '3px solid black'
+                }
+                onClick={() => setSelectedImage(src)}
+              />
+            ))}
+          </Flex>
+
           <Heading size="xl" display="flex" alignItems="center">
             Routes <Box ml={3} as={FaRegMap} />
           </Heading>
