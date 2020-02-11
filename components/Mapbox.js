@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
 
-import { Box, Stack, Heading } from '@chakra-ui/core';
+import { Box, Stack, Heading, IconButton } from '@chakra-ui/core';
+
+import { MdFullscreen } from 'react-icons/md';
 
 mapboxgl.accessToken =
   'pk.eyJ1IjoiY2hhZHRtaWxsZXIiLCJhIjoiY2s2YXpoY3V2MHc0YTNsbGp2c3h0NGY0OSJ9.9cpgobp96NPvaEngpEZVAA';
@@ -20,7 +22,6 @@ export const Mapbox = ({ title, dataUrl }) => {
       });
 
       map.on('load', () => {
-        map.addControl(new mapboxgl.FullscreenControl());
         map.addSource('route', { type: 'geojson', data: dataUrl });
         map.addLayer({
           id: 'route',
@@ -50,12 +51,23 @@ export const Mapbox = ({ title, dataUrl }) => {
         {title}
       </Heading>
       <Box
+        position="relative"
         width={[390, 475, 600, 936]}
         height={[250, 400, 400, 400]}
         border="2px solid #333"
         borderRadius={1}
         ref={el => (mapContainerEl = el)}
-      />
+      >
+        <IconButton
+          variantColor="purple"
+          position="absolute"
+          top={3}
+          right={3}
+          icon={MdFullscreen}
+          zIndex={100}
+          onClick={() => map.getContainer().requestFullscreen()}
+        />
+      </Box>
     </Stack>
   );
 };
