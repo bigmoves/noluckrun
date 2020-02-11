@@ -75,12 +75,13 @@ const HomePage = props => {
           <Flex overflowX="auto" mb={4}>
             {images.map(src => (
               <Image
+                cursor="pointer"
                 key={src}
                 src={src}
                 width={150}
                 height={100}
                 mr={4}
-                opacity={selectedImage === src ? 1 : 0.75}
+                opacity={selectedImage === src ? 1 : 0.65}
                 border={
                   selectedImage === src ? '3px solid purple' : '3px solid black'
                 }
