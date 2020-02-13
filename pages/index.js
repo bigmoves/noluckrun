@@ -14,7 +14,7 @@ import Layout from '../components/layout';
 import { FaRegMap, FaRegClock } from 'react-icons/fa';
 import Countdown from 'react-countdown';
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const MapboxNoSSR = dynamic(
   () => import('../components/mapbox').then(mod => mod.Mapbox),
@@ -43,8 +43,29 @@ const HomePage = props => {
     '/noluck-3.jpg',
     '/noluck-4.jpg',
     '/noluck-5.jpg',
-    '/noluck-6.jpg'
+    // '/noluck-7.jpg',
+    // '/noluck-8.jpg',
+    // '/noluck-9.jpg',
+    '/noluck-10.jpg',
+    '/noluck-11.jpg',
+    '/noluck-12.jpg',
+    '/noluck-13.jpg',
+    // '/noluck-14.jpg',
+    // '/noluck-15.jpg',
+    '/noluck-16.jpg'
   ];
+
+  useEffect(() => {
+    setTimeout(() => {
+      let nextIndex = images.indexOf(selectedImage) + 1;
+
+      if (nextIndex === images.length) {
+        nextIndex = 0;
+      }
+
+      setSelectedImage(images[nextIndex]);
+    }, 4000);
+  });
 
   return (
     <Layout AuthUser={AuthUser}>
