@@ -1,5 +1,14 @@
 import dynamic from 'next/dynamic';
-import { Box, Heading, Flex, Image } from '@chakra-ui/core';
+import {
+  Badge,
+  Box,
+  Heading,
+  Flex,
+  Image,
+  Stat,
+  StatLabel,
+  StatNumber
+} from '@chakra-ui/core';
 import { get } from 'lodash/object';
 import Layout from '../components/layout';
 import { FaRegMap, FaRegClock } from 'react-icons/fa';
@@ -89,11 +98,36 @@ const HomePage = props => {
               />
             ))}
           </Flex>
-
+          <Box textAlign="center">
+            <Heading fontSize="3xl" mb={4}>
+              March 15th, 2020 @ Glenhaven Park
+            </Heading>
+            <Stat mb={4}>
+              <StatLabel fontWeight="bold">Check-in:</StatLabel>
+              <StatNumber> 9:30am</StatNumber>
+            </Stat>
+            <Stat mb={4}>
+              <StatLabel fontWeight="bold">
+                <Badge>15k</Badge> starts @:
+              </StatLabel>
+              <StatNumber> 10am</StatNumber>
+            </Stat>
+            <Stat mb={4}>
+              <StatLabel fontWeight="bold">
+                <Badge>10k</Badge> starts @:
+              </StatLabel>
+              <StatNumber> 10:30am</StatNumber>
+            </Stat>
+            <Stat mb={4}>
+              <StatLabel fontWeight="bold">
+                <Badge>5k</Badge> starts @:
+              </StatLabel>
+              <StatNumber> 11am</StatNumber>
+            </Stat>
+          </Box>
           <Heading size="xl" display="flex" alignItems="center">
             Routes <Box ml={3} as={FaRegMap} />
           </Heading>
-
           <Box>
             <MapboxNoSSR title="5k" dataUrl="/5k.json" />
             <MapboxNoSSR title="10k" dataUrl="/10k.json" />
