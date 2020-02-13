@@ -14,10 +14,11 @@ import {
 } from '@chakra-ui/core';
 
 import { checkout } from '../utils/stripe/checkout';
-import axios from 'axios';
-import Router from 'next/router';
+// import axios from 'axios';
+// import Router from 'next/router';
 
 export default function RegistrationForm() {
+  const [total, setTotal] = useState(15);
   const { handleSubmit, errors, register } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -33,13 +34,13 @@ export default function RegistrationForm() {
       });
   }
 
-  function onPayLater(values) {
-    setIsSubmitting(true);
-    axios.post('/api/register', values).then(() => {
-      setIsSubmitting(false);
-      Router.push(`/register?checkoutComplete=true&route=${values.routeName}`);
-    });
-  }
+  // function onPayLater(values) {
+  //   setIsSubmitting(true);
+  //   axios.post('/api/register', values).then(() => {
+  //     setIsSubmitting(false);
+  //     Router.push(`/register?checkoutComplete=true&route=${values.routeName}`);
+  //   });
+  // }
 
   return (
     <Box as="form" onSubmit={handleSubmit(onPayNow)} py={3} px={2}>
@@ -73,14 +74,22 @@ export default function RegistrationForm() {
       </FormControl>
       <FormControl mb={4} isInvalid={errors.shirtSize}>
         <FormLabel htmlFor="shirtSize" as="legend">
-          T-Shirt Size
+          T-Shirt Size +$10
         </FormLabel>
         <Select
           id="shirtSize"
           name="shirtSize"
           placeholder="Select Size"
           ref={register({ required: true })}
+          onChange={e => {
+            if (e.target.value !== 'none') {
+              setTotal(25);
+            } else {
+              setTotal(15);
+            }
+          }}
         >
+          <option value="none">None</option>
           <option value="small">Small</option>
           <option value="medium">Medium</option>
           <option value="large">Large</option>
@@ -101,13 +110,14 @@ export default function RegistrationForm() {
           <option value="5k">5k</option>
           <option value="10k">10k</option>
           <option value="15k">15k</option>
+          <option value="supporter">Athletic Supporter</option>
         </Select>
         <FormErrorMessage>Select a route</FormErrorMessage>
       </FormControl>
 
       <Stat mb={4}>
         <StatLabel>Total:</StatLabel>
-        <StatNumber>$25.00</StatNumber>
+        <StatNumber>${total}.00</StatNumber>
       </Stat>
 
       <Button
@@ -117,14 +127,6 @@ export default function RegistrationForm() {
         mr={4}
       >
         Pay now
-      </Button>
-      <Button
-        variant="outline"
-        variantColor="purple"
-        isLoading={isSubmitting}
-        onClick={handleSubmit(onPayLater)}
-      >
-        Pay at event
       </Button>
     </Box>
   );
