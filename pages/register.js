@@ -96,7 +96,7 @@ const RegisterPage = ({ AuthUserInfo, query, registrations = [] }) => {
 
           <Stack my={4}>
             <Text fontSize="md">
-              {50 - registrations.length}/200 Spots Available
+              {50 - registrations.length}/50 Spots Available
             </Text>
             <Progress
               color="purple"
