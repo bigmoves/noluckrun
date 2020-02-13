@@ -10,20 +10,26 @@ import {
   Box,
   Stat,
   StatLabel,
-  StatNumber
+  StatNumber,
+  Link,
+  Flex
 } from '@chakra-ui/core';
 
 import { checkout } from '../utils/stripe/checkout';
-// import axios from 'axios';
-// import Router from 'next/router';
 
 export default function RegistrationForm() {
-  const [total, setTotal] = useState(15);
+  const [customDonationAmount, setCustomDonationAmount] = useState(0);
+  const [shirtAmount, setShirtAmount] = useState(0);
+  const [customDonation, setCustomDonation] = useState(false);
   const { handleSubmit, errors, register } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   function onPayNow(values) {
     setIsSubmitting(true);
+
+    if (values.donation === 'custom') {
+      values.donation = customDonationAmount;
+    }
 
     checkout(values)
       .then(() => {
@@ -41,6 +47,8 @@ export default function RegistrationForm() {
   //     Router.push(`/register?checkoutComplete=true&route=${values.routeName}`);
   //   });
   // }
+
+  const total = customDonationAmount + shirtAmount + 15;
 
   return (
     <Box as="form" onSubmit={handleSubmit(onPayNow)} py={3} px={2}>
@@ -74,7 +82,7 @@ export default function RegistrationForm() {
       </FormControl>
       <FormControl mb={4} isInvalid={errors.shirtSize}>
         <FormLabel htmlFor="shirtSize" as="legend">
-          T-Shirt Size +$10
+          T-Shirt Size <b>+$10</b>
         </FormLabel>
         <Select
           id="shirtSize"
@@ -82,10 +90,11 @@ export default function RegistrationForm() {
           placeholder="Select Size"
           ref={register({ required: true })}
           onChange={e => {
+            console.log('yo yo');
             if (e.target.value !== 'none') {
-              setTotal(25);
+              setShirtAmount(10);
             } else {
-              setTotal(15);
+              setShirtAmount(0);
             }
           }}
         >
@@ -113,6 +122,65 @@ export default function RegistrationForm() {
           <option value="supporter">Athletic Supporter</option>
         </Select>
         <FormErrorMessage>Select a route</FormErrorMessage>
+      </FormControl>
+
+      <FormControl mb={4} isInvalid={errors.email}>
+        <FormLabel htmlFor="donation">
+          <Link
+            fontWeight="bold"
+            href="https://www.girlsontherun.org/"
+            isExternal
+          >
+            Make a Girls on the Run
+          </Link>{' '}
+          Donation!
+        </FormLabel>
+        {!customDonation && (
+          <Select
+            id="donation"
+            name="donation"
+            placeholder="Select a donation"
+            ref={register({ required: true })}
+            onChange={e => {
+              if (e.target.value === 'custom') {
+                setCustomDonationAmount(0);
+                setCustomDonation(!customDonation);
+              } else if (e.target.value === 'none') {
+                setCustomDonationAmount(0);
+              } else {
+                setCustomDonationAmount(+e.target.value);
+              }
+            }}
+          >
+            <option value="5">$5.00</option>
+            <option value="10">$10.00</option>
+            <option value="15">$15.00</option>
+            <option value="custom">Custom amount</option>
+            <option value="none">None</option>
+          </Select>
+        )}
+        {customDonation && (
+          <Flex>
+            <Input
+              id="donation"
+              name="donation"
+              type="number"
+              ref={register({ required: false })}
+              onChange={e => setCustomDonationAmount(+e.target.value)}
+              mr={4}
+            />
+            <Button
+              variant="outline"
+              onClick={() => {
+                setCustomDonationAmount(0);
+                setCustomDonation(false);
+              }}
+            >
+              Reset
+            </Button>
+          </Flex>
+        )}
+        <FormErrorMessage>Enter a donation</FormErrorMessage>
       </FormControl>
 
       <Stat mb={4}>

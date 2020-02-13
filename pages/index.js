@@ -124,6 +124,11 @@ const HomePage = props => {
               </StatLabel>
               <StatNumber> 11am</StatNumber>
             </Stat>
+            <Stat mb={4}>
+              <StatLabel fontWeight="bold">
+                ⚽️ Optional soccer game to follow! ⚽️
+              </StatLabel>
+            </Stat>
           </Box>
           <Heading size="xl" display="flex" alignItems="center">
             Routes <Box ml={3} as={FaRegMap} />

@@ -53,7 +53,7 @@ const RegisterPage = ({ AuthUserInfo, query, registrations = [] }) => {
             >
               <Image src="/noluck-3.jpg" alt="You're all set" mb={4} />
               <Text fontWeight="bold" mb={4}>
-                See you on March 17th!
+                See you on March 15th!
               </Text>
               <Text>Here's the breakdown so far...</Text>
               <BarChart
