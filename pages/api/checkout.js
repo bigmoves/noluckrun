@@ -1,6 +1,6 @@
 import commonMiddleware from '../../utils/middleware/commonMiddleware';
 
-const stripeFeePercent = 3.3; // Stripe says it's 2.9 but the numbers don't add up
+const stripeFeePercent = 2.9;
 const stripeFeeFixed = 0.3;
 
 const routes = {
@@ -53,7 +53,9 @@ const donationItem = amount => ({
 const processingFee = total => ({
   name: 'Processing Fee',
   description: 'Processing Fee',
-  amount: Math.round(total * (stripeFeePercent / 100) + stripeFeeFixed),
+  amount:
+    Math.round((total + stripeFeeFixed * 100) / (1 - stripeFeePercent / 100)) -
+    total,
   currency: 'usd',
   quantity: 1
 });
@@ -79,9 +81,6 @@ const handler = async (req, res) => {
     (previous, current) => previous + current.amount,
     0
   );
-
-  console.log(totalAmount);
-  console.log(Math.round(totalAmount + (totalAmount * 0.00029 + 0.003)));
 
   lineItems.push(processingFee(totalAmount));
 
