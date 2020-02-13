@@ -56,7 +56,7 @@ const HomePage = props => {
   ];
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       let nextIndex = images.indexOf(selectedImage) + 1;
 
       if (nextIndex === images.length) {
@@ -65,6 +65,10 @@ const HomePage = props => {
 
       setSelectedImage(images[nextIndex]);
     }, 4000);
+
+    return () => {
+      clearTimeout(timer);
+    };
   });
 
   return (
@@ -128,21 +132,15 @@ const HomePage = props => {
               <StatNumber> 9:30am</StatNumber>
             </Stat>
             <Stat mb={4}>
-              <StatLabel fontWeight="bold">
-                <Badge>15k</Badge> starts @:
-              </StatLabel>
+              <StatLabel fontWeight="bold">15k starts @:</StatLabel>
               <StatNumber> 10am</StatNumber>
             </Stat>
             <Stat mb={4}>
-              <StatLabel fontWeight="bold">
-                <Badge>10k</Badge> starts @:
-              </StatLabel>
+              <StatLabel fontWeight="bold">10k starts @:</StatLabel>
               <StatNumber> 10:30am</StatNumber>
             </Stat>
             <Stat mb={4}>
-              <StatLabel fontWeight="bold">
-                <Badge>5k</Badge> starts @:
-              </StatLabel>
+              <StatLabel fontWeight="bold">5k starts @:</StatLabel>
               <StatNumber> 11am</StatNumber>
             </Stat>
             <Stat mb={4}>

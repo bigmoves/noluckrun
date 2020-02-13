@@ -62,13 +62,32 @@ NLR Committee
 const handler = async (req, res) => {
   const event = req.body;
 
+  const displayItems = get(event, 'data.object.display_items', []);
+  const totalAmount = displayItems.reduce(
+    (previous, current) => previous + current.amount,
+    0
+  );
+  const donation = displayItems.find(
+    i => get(i, 'custom.name', '') === 'Donation'
+  );
+  const donationAmount = get(donation, 'amount', '');
+
+  const stripeCustomerUrl = (id, liveMode) =>
+    `https://dashboard.stripe.com/${liveMode ? '' : 'test/'}customers/${id}`;
+
   const registration = {
     firstName: get(event, 'data.object.metadata.firstName', ''),
     lastName: get(event, 'data.object.metadata.lastName', ''),
     email: get(event, 'data.object.customer_email', ''),
     routeName: get(event, 'data.object.display_items[0].custom.name', ''),
     shirtSize: get(event, 'data.object.metadata.shirtSize', ''),
-    paid: true
+    donationAmount: donationAmount / 100,
+    paid: totalAmount / 100,
+    stripeCustomerId: get(event, 'data.object.customer', ''),
+    stripeCustomerUrl: stripeCustomerUrl(
+      get(event, 'data.object.customer', ''),
+      get(event, 'liveMode', false)
+    )
   };
 
   const email = {

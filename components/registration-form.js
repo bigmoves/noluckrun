@@ -82,7 +82,7 @@ export default function RegistrationForm() {
       </FormControl>
       <FormControl mb={4} isInvalid={errors.shirtSize}>
         <FormLabel htmlFor="shirtSize" as="legend">
-          T-Shirt Size <b>+$10</b>
+          T-Shirt <b>+$10</b>
         </FormLabel>
         <Select
           id="shirtSize"
@@ -126,14 +126,14 @@ export default function RegistrationForm() {
 
       <FormControl mb={4} isInvalid={errors.email}>
         <FormLabel htmlFor="donation">
+          Make a donation to{' '}
           <Link
             fontWeight="bold"
             href="https://www.girlsontherun.org/"
             isExternal
           >
-            Make a Girls on the Run
-          </Link>{' '}
-          Donation!
+            Girls on the Run!
+          </Link>
         </FormLabel>
         {!customDonation && (
           <Select

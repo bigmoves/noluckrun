@@ -5,7 +5,9 @@ import {
   Flex,
   Stat,
   StatLabel,
-  StatNumber
+  StatNumber,
+  Link,
+  Icon
 } from '@chakra-ui/core';
 import Layout from '../components/layout';
 import withAuthUser from '../utils/pageWrappers/withAuthUser';
@@ -16,7 +18,7 @@ import styled from '@emotion/styled';
 import axios from 'axios';
 import BarChart from '../components/bar-chart';
 import { get } from 'lodash/object';
-import { FaRegCheckCircle, FaPoo } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaExternalLinkSquareAlt } from 'react-icons/fa';
 import Router from 'next/router';
 import { getCountData } from '../utils/charts';
 
@@ -122,15 +124,29 @@ const AdminPage = ({ AuthUserInfo, registrations = [] }) => {
       )
     },
     {
+      Header: 'Donation',
+      accessor: 'donationAmount',
+      Cell: ({ cell: { value } }) =>
+        value ? <Badge variantColor="pink">${value}</Badge> : ''
+    },
+    {
       Header: 'Paid',
       accessor: 'paid',
+      Cell: ({ cell: { value } }) =>
+        typeof value === 'number' ? (
+          <Badge variantColor="green">${value}</Badge>
+        ) : (
+          ''
+        )
+    },
+    {
+      Header: 'Stripe',
+      accessor: 'stripeCustomerUrl',
       Cell: ({ cell: { value } }) => (
-        <Flex justifyContent="center">
-          {value ? (
-            <Box as={FaRegCheckCircle} color="green.600" />
-          ) : (
-            <Box as={FaPoo} color="brown" />
-          )}
+        <Flex align="center" justify="center">
+          <Link isExternal href={value}>
+            <Box as={FaExternalLinkAlt} color="black" />
+          </Link>
         </Flex>
       )
     }
