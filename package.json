@@ -24,6 +24,7 @@
     "emotion-theming": "^10.0.27",
     "firebase": "^7.8.1",
     "firebase-admin": "^8.9.2",
+    "framer-motion": "^1.8.4",
     "lodash": "^4.17.15",
     "mapbox-gl": "^1.7.0",
     "next": "^9.2.1",

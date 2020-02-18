@@ -1,5 +1,6 @@
 import { Global, css } from '@emotion/core';
 import { ThemeProvider, CSSReset } from '@chakra-ui/core';
+import { AnimatePresence } from 'framer-motion';
 
 import theme from '../components/theme';
 
@@ -14,7 +15,9 @@ export default function MyApp({ Component, pageProps }) {
         `}
       />
 
-      <Component {...pageProps} />
+      <AnimatePresence exitBeforeEnter>
+        <Component {...pageProps} />
+      </AnimatePresence>
     </ThemeProvider>
   );
 }

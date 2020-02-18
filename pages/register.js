@@ -30,6 +30,28 @@ import axios from 'axios';
 
 import { FaRegClipboard } from 'react-icons/fa';
 
+import { motion } from 'framer-motion';
+
+let easing = [0.175, 0.85, 0.42, 0.96];
+
+const formVariants = {
+  exit: { y: 100, opacity: 0, transition: { duration: 0.5, ease: easing } },
+  enter: {
+    y: 0,
+    opacity: 1,
+    transition: { delay: 0.1, duration: 0.5, ease: easing }
+  }
+};
+
+const spotsAvailableVariants = {
+  exit: { y: 100, opacity: 0, transition: { duration: 0.5, ease: easing } },
+  enter: {
+    y: 0,
+    opacity: 1,
+    transition: { delay: 0.1, duration: 0.5, ease: easing }
+  }
+};
+
 const RegisterPage = ({ AuthUserInfo, query, registrations = [] }) => {
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
 
@@ -80,34 +102,44 @@ const RegisterPage = ({ AuthUserInfo, query, registrations = [] }) => {
         <Head>
           <script src="https://js.stripe.com/v3/"></script>
         </Head>
-        <Box
-          px={10}
-          py={250}
-          backgroundImage="url(/noluck-4.jpg)"
-          backgroundPosition={['40% 25%', '0% 25%']}
-          backgroundSize="cover"
-          color="white"
-          bg="gray"
-        />
-        <Box width="100%" maxWidth={960} mx="auto" px={[3, 10]} paddingTop={3}>
-          <Heading size="xl" display="flex" alignItems="center">
-            Register <Box ml={3} as={FaRegClipboard} />
-          </Heading>
-
-          <Stack my={4}>
-            <Text fontSize="md">
-              {50 - registrations.length}/50 Spots Available
-            </Text>
-            <Progress
-              color="purple"
-              value={((50 - registrations.length) / 50) * 100}
+        <motion.div initial="exit" animate="enter" exit="exit">
+          <motion.div variants={formVariants}>
+            <Box
+              px={10}
+              py={250}
+              backgroundImage="url(/noluck-4.jpg)"
+              backgroundPosition={['40% 25%', '0% 25%']}
+              backgroundSize="cover"
+              color="white"
+              bg="gray"
             />
-          </Stack>
+            <Box
+              width="100%"
+              maxWidth={960}
+              mx="auto"
+              px={[3, 10]}
+              paddingTop={3}
+            >
+              <Heading size="xl" display="flex" alignItems="center">
+                Register <Box ml={3} as={FaRegClipboard} />
+              </Heading>
 
-          <Divider my={4} />
+              <Stack my={4}>
+                <Text fontSize="md">
+                  {50 - registrations.length}/50 Spots Available
+                </Text>
+                <Progress
+                  color="purple"
+                  value={((50 - registrations.length) / 50) * 100}
+                />
+              </Stack>
 
-          <RegistrationForm />
-        </Box>
+              <Divider my={4} />
+
+              <RegistrationForm />
+            </Box>
+          </motion.div>
+        </motion.div>
       </Box>
     </Layout>
   );
