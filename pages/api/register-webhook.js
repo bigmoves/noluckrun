@@ -87,7 +87,8 @@ const handler = async (req, res) => {
     stripeCustomerUrl: stripeCustomerUrl(
       get(event, 'data.object.customer', ''),
       get(event, 'liveMode', false)
-    )
+    ),
+    timestamp: Date.now()
   };
 
   const email = {

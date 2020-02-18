@@ -8,7 +8,8 @@ const handler = async (req, res) => {
     email: get(req.body, 'email', ''),
     routeName: get(req.body, 'routeName', ''),
     shirtSize: get(req.body, 'shirtSize', ''),
-    paid: false
+    paid: false,
+    timestamp: Date.now()
   };
 
   addRegistration(registration)

@@ -19,7 +19,7 @@ const routes = {
     quantity: 1
   },
   '15k': {
-    name: '5k',
+    name: '15k',
     description: 'No Luck Run 15k',
     amount: 1500,
     currency: 'usd',
