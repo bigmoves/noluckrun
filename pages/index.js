@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/core';
 import { get } from 'lodash/object';
 import Layout from '../components/layout';
+import ImageSlider from '../components/image-slider';
 import { FaRegMap, FaRegClock } from 'react-icons/fa';
 import Countdown from 'react-countdown';
 import Head from 'next/head';
@@ -80,17 +81,10 @@ const HomePage = props => {
         />
       </Head>
       <Box>
-        <Box
-          position="relative"
-          px={10}
-          py={250}
-          backgroundImage={`url(${selectedImage})`}
-          backgroundPosition={['40% 25%', '0% 25%']}
-          backgroundSize="cover"
-          color="white"
-          bg="gray"
-        >
+        <Box position="relative" height="500px" color="white">
+          <ImageSlider images={images} />
           <Box
+            zIndex={2}
             fontWeight="bold"
             position="absolute"
             right={10}
@@ -106,23 +100,6 @@ const HomePage = props => {
           </Box>
         </Box>
         <Box width="100%" maxWidth={960} mx="auto" px={[3, 10]} paddingTop={3}>
-          <Flex overflowX="auto" mb={4}>
-            {images.map(src => (
-              <Image
-                cursor="pointer"
-                key={src}
-                src={src}
-                width={150}
-                height={100}
-                mr={4}
-                opacity={selectedImage === src ? 1 : 0.65}
-                border={
-                  selectedImage === src ? '3px solid purple' : '3px solid black'
-                }
-                onClick={() => setSelectedImage(src)}
-              />
-            ))}
-          </Flex>
           <Box textAlign="center">
             <Heading fontSize="3xl" mb={4}>
               March 15th, 2020 @ Glenhaven Park

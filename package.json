@@ -12,6 +12,7 @@
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@emotion/core": "^10.0.27",
     "@emotion/styled": "^10.0.27",
+    "@popmotion/popcorn": "^0.4.4",
     "@vx/axis": "0.0.193",
     "@vx/group": "0.0.193",
     "@vx/scale": "0.0.193",
