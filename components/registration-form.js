@@ -40,14 +40,6 @@ export default function RegistrationForm() {
       });
   }
 
-  // function onPayLater(values) {
-  //   setIsSubmitting(true);
-  //   axios.post('/api/register', values).then(() => {
-  //     setIsSubmitting(false);
-  //     Router.push(`/register?checkoutComplete=true&route=${values.routeName}`);
-  //   });
-  // }
-
   const total = customDonationAmount + shirtAmount + 15;
 
   return (
@@ -194,7 +186,7 @@ export default function RegistrationForm() {
         isLoading={isSubmitting}
         mr={4}
       >
-        Pay now
+        Pay meow
       </Button>
     </Box>
   );

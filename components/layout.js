@@ -56,16 +56,18 @@ const Layout = ({ AuthUser, adminPage, children }) => (
       {adminPage ? (
         renderAuthButtons(AuthUser)
       ) : (
-        <Link href="/register">
-          <Button
-            variantColor="purple"
-            as="a"
-            href="/register"
-            fontWeight="bold"
-          >
-            Register
-          </Button>
-        </Link>
+        <>
+          <Link href="/register">
+            <Button
+              variantColor="purple"
+              as="a"
+              href="/register"
+              fontWeight="bold"
+            >
+              Register
+            </Button>
+          </Link>
+        </>
       )}
     </Flex>
     {children}

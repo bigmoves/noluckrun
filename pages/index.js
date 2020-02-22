@@ -1,10 +1,8 @@
 import dynamic from 'next/dynamic';
 import {
-  Badge,
   Box,
   Heading,
   Flex,
-  Image,
   Stat,
   StatLabel,
   StatNumber
@@ -15,7 +13,7 @@ import ImageSlider from '../components/image-slider';
 import { FaRegMap, FaRegClock } from 'react-icons/fa';
 import Countdown from 'react-countdown';
 import Head from 'next/head';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const MapboxNoSSR = dynamic(
   () => import('../components/mapbox').then(mod => mod.Mapbox),
@@ -34,7 +32,6 @@ const countdownRenderer = ({ days, hours, minutes, seconds }) => {
 };
 
 const HomePage = props => {
-  const [selectedImage, setSelectedImage] = useState('/noluck-1.jpg');
   const { AuthUserInfo } = props;
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
 
@@ -56,21 +53,26 @@ const HomePage = props => {
     '/noluck-16.jpg'
   ];
 
+  const [containerWidth, setContainerWidth] = useState(960 - 24);
+  const containerRef = useRef();
+
   useEffect(() => {
-    const timer = setTimeout(() => {
-      let nextIndex = images.indexOf(selectedImage) + 1;
+    const getContainerWidth = () => {
+      setContainerWidth(
+        containerRef.current.getBoundingClientRect().width - 24
+      );
+    };
 
-      if (nextIndex === images.length) {
-        nextIndex = 0;
-      }
+    if (containerRef) {
+      getContainerWidth();
+    }
 
-      setSelectedImage(images[nextIndex]);
-    }, 4000);
+    window.addEventListener('resize', getContainerWidth);
 
     return () => {
-      clearTimeout(timer);
+      window.removeEventListener('resize', getContainerWidth);
     };
-  });
+  }, []);
 
   return (
     <Layout AuthUser={AuthUser}>
@@ -99,7 +101,14 @@ const HomePage = props => {
             />
           </Box>
         </Box>
-        <Box width="100%" maxWidth={960} mx="auto" px={[3, 10]} paddingTop={3}>
+        <Box
+          ref={containerRef}
+          width="100%"
+          maxWidth={960}
+          mx="auto"
+          px={[3, 10]}
+          paddingTop={3}
+        >
           <Box textAlign="center">
             <Heading fontSize="3xl" mb={4}>
               March 15th, 2020 @ Glenhaven Park
@@ -130,9 +139,17 @@ const HomePage = props => {
             Routes <Box ml={3} as={FaRegMap} />
           </Heading>
           <Box>
-            <MapboxNoSSR title="5k" dataUrl="/5k.json" />
-            <MapboxNoSSR title="10k" dataUrl="/10k.json" />
-            <MapboxNoSSR title="15k" dataUrl="/15k.json" />
+            <MapboxNoSSR title="5k" dataUrl="/5k.json" width={containerWidth} />
+            <MapboxNoSSR
+              title="10k"
+              dataUrl="/10k.json"
+              width={containerWidth}
+            />
+            <MapboxNoSSR
+              title="15k"
+              dataUrl="/15k.json"
+              width={containerWidth}
+            />
           </Box>
         </Box>
       </Box>

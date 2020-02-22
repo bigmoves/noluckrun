@@ -43,15 +43,6 @@ const formVariants = {
   }
 };
 
-const spotsAvailableVariants = {
-  exit: { y: 100, opacity: 0, transition: { duration: 0.5, ease: easing } },
-  enter: {
-    y: 0,
-    opacity: 1,
-    transition: { delay: 0.1, duration: 0.5, ease: easing }
-  }
-};
-
 const RegisterPage = ({ AuthUserInfo, query, registrations = [] }) => {
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
 

@@ -8,7 +8,7 @@ import { MdFullscreen } from 'react-icons/md';
 mapboxgl.accessToken =
   'pk.eyJ1IjoiY2hhZHRtaWxsZXIiLCJhIjoiY2s2YXpoY3V2MHc0YTNsbGp2c3h0NGY0OSJ9.9cpgobp96NPvaEngpEZVAA';
 
-export const Mapbox = ({ title, dataUrl }) => {
+export const Mapbox = ({ title, dataUrl, width }) => {
   const [fullscreen, setFullscreen] = useState(false);
   const [map, setMap] = useState(null);
   let mapContainerEl = useRef(null);
@@ -60,8 +60,8 @@ export const Mapbox = ({ title, dataUrl }) => {
       </Heading>
       <Box
         position={fullscreen ? 'fixed' : 'relative'}
-        width={fullscreen ? '100%' : [390, 475, 600, 880]}
-        height={fullscreen ? '100%' : [250, 400, 400, 400]}
+        width={fullscreen ? '100%' : width}
+        height={fullscreen ? '100%' : [250, 400]}
         zIndex={fullscreen ? 1000 : 1}
         border="2px solid #333"
         borderRadius={1}
