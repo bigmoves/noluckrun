@@ -7,7 +7,7 @@ import {
   StatLabel,
   StatNumber,
   Link,
-  Icon
+  Input
 } from '@chakra-ui/core';
 import Layout from '../components/layout';
 import withAuthUser from '../utils/pageWrappers/withAuthUser';
@@ -22,6 +22,7 @@ import { FaExternalLinkAlt } from 'react-icons/fa';
 import Router from 'next/router';
 import { getCountData } from '../utils/charts';
 import { sortBy } from 'lodash/collection';
+import React, { useState } from 'react';
 
 const TableStyles = styled.div`
   overflow-x: auto;
@@ -97,6 +98,7 @@ function Table({ columns, data }) {
 
 const AdminPage = ({ AuthUserInfo, registrations = [] }) => {
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
+  const [password, setPassword] = useState(null);
 
   const columns = [
     {
@@ -175,39 +177,50 @@ const AdminPage = ({ AuthUserInfo, registrations = [] }) => {
             Admin <Box ml={3} as={FaRegAddressBook} />
           </Heading>
 
-          <Stat mb={4}>
-            <StatLabel>Participants:</StatLabel>
-            <StatNumber>{registrations.length}</StatNumber>
-          </Stat>
+          {password === 'mowmow' ? (
+            <>
+              <Stat mb={4}>
+                <StatLabel>Participants:</StatLabel>
+                <StatNumber>{registrations.length}</StatNumber>
+              </Stat>
 
-          <Flex
-            flexDirection={['column', 'row']}
-            justifyContent="center"
-            mb={4}
-          >
-            <BarChart
-              width={400}
-              height={300}
-              xValueAccessor={d => d.routeName}
-              yValueAccessor={d => d.count}
-              data={routeCounts}
-              xAxisLabel="Routes"
-              yAxisLabel="Count"
-            />
-            <BarChart
-              width={400}
-              height={300}
-              xValueAccessor={d => d.shirtSize}
-              yValueAccessor={d => d.count}
-              data={getCountData(registrations, 'shirtSize')}
-              xAxisLabel="T-Shirt Sizes"
-              yAxisLabel="Count"
-            />
-          </Flex>
+              <Flex
+                flexDirection={['column', 'row']}
+                justifyContent="center"
+                mb={4}
+              >
+                <BarChart
+                  width={400}
+                  height={300}
+                  xValueAccessor={d => d.routeName}
+                  yValueAccessor={d => d.count}
+                  data={routeCounts}
+                  xAxisLabel="Routes"
+                  yAxisLabel="Count"
+                />
+                <BarChart
+                  width={400}
+                  height={300}
+                  xValueAccessor={d => d.shirtSize}
+                  yValueAccessor={d => d.count}
+                  data={getCountData(registrations, 'shirtSize')}
+                  xAxisLabel="T-Shirt Sizes"
+                  yAxisLabel="Count"
+                />
+              </Flex>
 
-          <TableStyles>
-            <Table columns={columns} data={registrations} />
-          </TableStyles>
+              <TableStyles>
+                <Table columns={columns} data={registrations} />
+              </TableStyles>
+            </>
+          ) : (
+            <Box>
+              <Input
+                placeholder="Enter Password"
+                onChange={e => setPassword(e.target.value)}
+              />
+            </Box>
+          )}
         </Box>
       </Box>
     </Layout>
