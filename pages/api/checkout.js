@@ -6,21 +6,21 @@ const stripeFeeFixed = 0.3;
 const routes = {
   '5k': {
     name: '5k',
-    description: 'Hills are for suckers',
+    description: '5k Registration Fee',
     amount: 1500,
     currency: 'usd',
     quantity: 1
   },
   '10k': {
     name: '10k',
-    description: 'No Luck Run 10k',
+    description: '10k Registration Fee',
     amount: 1500,
     currency: 'usd',
     quantity: 1
   },
   '15k': {
     name: '15k',
-    description: 'No Luck Run 15k',
+    description: '15k Registration Fee',
     amount: 1500,
     currency: 'usd',
     quantity: 1
@@ -61,7 +61,11 @@ const processingFee = total => ({
 });
 
 const handler = async (req, res) => {
-  const stripe = require('stripe')(process.env.STRIPE_SECRET_API_KEY);
+  const stripeKey =
+    process.env.NODE_ENV === 'production'
+      ? process.env.STRIPE_SECRET_API_KEY_PROD
+      : process.env.STRIPE_SECRET_API_KEY;
+  const stripe = require('stripe')(stripeKey);
   const {
     firstName,
     lastName,

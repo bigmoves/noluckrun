@@ -22,7 +22,11 @@ export const getRegistrations = () => {
 
   return admin
     .firestore()
-    .collection('registrations')
+    .collection(
+      process.env.NODE_ENV === 'production'
+        ? 'registrations'
+        : 'registrations_dev'
+    )
     .get()
     .then(snapshot => {
       let docs = [];

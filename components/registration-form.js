@@ -82,7 +82,6 @@ export default function RegistrationForm() {
           placeholder="Select Size"
           ref={register({ required: true })}
           onChange={e => {
-            console.log('yo yo');
             if (e.target.value !== 'none') {
               setShirtAmount(10);
             } else {
@@ -116,7 +115,7 @@ export default function RegistrationForm() {
         <FormErrorMessage>Select a route</FormErrorMessage>
       </FormControl>
 
-      <FormControl mb={4} isInvalid={errors.email}>
+      <FormControl mb={4} isInvalid={errors.donation}>
         <FormLabel htmlFor="donation">
           Make a donation to{' '}
           <Link

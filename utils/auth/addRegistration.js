@@ -22,7 +22,11 @@ export const addRegistration = registration => {
 
   return admin
     .firestore()
-    .collection('registrations')
+    .collection(
+      process.env.NODE_ENV === 'production'
+        ? 'registrations'
+        : 'registrations_dev'
+    )
     .add(registration)
     .then(ref => {
       return {

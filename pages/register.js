@@ -46,10 +46,9 @@ const formVariants = {
 
 const RegisterPage = ({ AuthUserInfo, query, registrations = [] }) => {
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
-  const routeCounts = sortBy(
-    getCountData(registrations, 'routeName'),
-    'routeName'
-  ).reverse();
+  const routeCounts = getCountData(registrations, 'routeName').sort(
+    (a, b) => a.routeName.split('k')[0] - b.routeName.split('k')[0]
+  );
 
   return (
     <Layout AuthUser={AuthUser}>

@@ -9,7 +9,9 @@
     "SESSION_SECRET_CURRENT": "@session_secret_current",
     "SESSION_SECRET_PREVIOUS": "@session_secret_previous",
     "STRIPE_PUBLIC_API_KEY": "pk_test_DxT4ScfTFOgqoKKB9T6CLqUJ",
-    "STRIPE_SECRET_API_KEY": "@stripe_secret_api_key"
+    "STRIPE_SECRET_API_KEY": "@stripe_secret_api_key",
+    "STRIPE_PUBLIC_API_KEY_PROD": "pk_live_4K0lKXLMvJJt6cSCpVN4w6Da",
+    "STRIPE_SECRET_API_KEY_PROD": "@stripe_secret_api_key_prod"
   },
   "build": {
     "env": {
@@ -22,7 +24,9 @@
       "SESSION_SECRET_CURRENT": "@session_secret_current",
       "SESSION_SECRET_PREVIOUS": "@session_secret_previous",
       "STRIPE_PUBLIC_API_KEY": "pk_test_DxT4ScfTFOgqoKKB9T6CLqUJ",
-      "STRIPE_SECRET_API_KEY": "@stripe_secret_api_key"
+      "STRIPE_SECRET_API_KEY": "@stripe_secret_api_key",
+      "STRIPE_PUBLIC_API_KEY_PROD": "pk_live_4K0lKXLMvJJt6cSCpVN4w6Da",
+      "STRIPE_SECRET_API_KEY_PROD": "@stripe_secret_api_key_prod"
     }
   }
 }

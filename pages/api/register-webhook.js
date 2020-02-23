@@ -2,11 +2,13 @@ import { addRegistration } from '../../utils/auth/addRegistration';
 import { get } from 'lodash/object';
 import { sendEmail } from '../../utils/auth/sendEmail';
 
-const html = (firstName, lastName) => `
-<insert image of Jutty/>
+const html = (firstName, lastName, routeName, shirtSize) => `
+<p>
+Congrats, ${firstName} ${lastName}! You are registered for the NLR 2020! 🎉
+</p>
 
 <p>
-Congrats, ${firstName} ${lastName}! You are registered for the NLR 2020! 🎉 
+You're signed up for the ${routeName} and ordered a size ${shirtSize} t-shirt.
 </p>
 
 <p>
@@ -97,7 +99,9 @@ const handler = async (req, res) => {
       subject: 'No Luck Run - You are registered, sucker! 🏃‍♀️🏃‍♂️',
       html: html(
         get(event, 'data.object.metadata.firstName', ''),
-        get(event, 'data.object.metadata.lastName', '')
+        get(event, 'data.object.metadata.lastName', ''),
+        get(event, 'data.object.display_items[0].custom.name', ''),
+        get(event, 'data.object.metadata.shirtSize', '')
       )
     }
   };
