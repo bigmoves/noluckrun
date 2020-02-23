@@ -18,9 +18,10 @@ import styled from '@emotion/styled';
 import axios from 'axios';
 import BarChart from '../components/bar-chart';
 import { get } from 'lodash/object';
-import { FaExternalLinkAlt, FaExternalLinkSquareAlt } from 'react-icons/fa';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 import Router from 'next/router';
 import { getCountData } from '../utils/charts';
+import { sortBy } from 'lodash/collection';
 
 const TableStyles = styled.div`
   overflow-x: auto;
@@ -152,6 +153,11 @@ const AdminPage = ({ AuthUserInfo, registrations = [] }) => {
     }
   ];
 
+  const routeCounts = sortBy(
+    getCountData(registrations, 'routeName'),
+    'routeName'
+  ).reverse();
+
   return (
     <Layout AuthUser={AuthUser}>
       <Box>
@@ -184,7 +190,7 @@ const AdminPage = ({ AuthUserInfo, registrations = [] }) => {
               height={300}
               xValueAccessor={d => d.routeName}
               yValueAccessor={d => d.count}
-              data={getCountData(registrations, 'routeName')}
+              data={routeCounts}
               xAxisLabel="Routes"
               yAxisLabel="Count"
             />

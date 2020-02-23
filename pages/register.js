@@ -27,6 +27,7 @@ import { getCountData } from '../utils/charts';
 
 import Router from 'next/router';
 import axios from 'axios';
+import { sortBy } from 'lodash/collection';
 
 import { FaRegClipboard } from 'react-icons/fa';
 
@@ -45,6 +46,10 @@ const formVariants = {
 
 const RegisterPage = ({ AuthUserInfo, query, registrations = [] }) => {
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
+  const routeCounts = sortBy(
+    getCountData(registrations, 'routeName'),
+    'routeName'
+  ).reverse();
 
   return (
     <Layout AuthUser={AuthUser}>
@@ -74,7 +79,7 @@ const RegisterPage = ({ AuthUserInfo, query, registrations = [] }) => {
                 height={300}
                 xValueAccessor={d => d.routeName}
                 yValueAccessor={d => d.count}
-                data={getCountData(registrations, 'routeName')}
+                data={routeCounts}
                 xAxisLabel="Routes"
                 yAxisLabel="Count"
                 selected={query.route}
