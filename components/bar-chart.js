@@ -5,6 +5,7 @@ import { Group } from '@vx/group';
 import { AxisBottom, AxisLeft } from '@vx/axis';
 
 import { Badge } from '@chakra-ui/core';
+import { format } from 'd3-format';
 
 export default ({
   width,
@@ -90,6 +91,8 @@ export default ({
           stroke={primary}
           tickStroke={primary}
           strokeWidth={2}
+          tickFormat={format('d')}
+          numTicks={Math.max(...data.map(yValueAccessor))}
         />
         <AxisBottom
           left={0}

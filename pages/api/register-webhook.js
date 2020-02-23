@@ -108,7 +108,12 @@ const handler = async (req, res) => {
 
   sendEmail(email);
 
-  addRegistration(registration)
+  addRegistration(
+    registration,
+    get(event, 'data.object.metadata.isProduction', false) === 'true'
+      ? true
+      : false
+  )
     .then(ref => {
       res.json(ref);
     })

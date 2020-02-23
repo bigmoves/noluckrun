@@ -95,7 +95,8 @@ const handler = async (req, res) => {
     metadata: {
       shirtSize,
       firstName,
-      lastName
+      lastName,
+      isProduction: process.env.NODE_ENV === 'production'
     },
     success_url:
       process.env.NODE_ENV === 'production'

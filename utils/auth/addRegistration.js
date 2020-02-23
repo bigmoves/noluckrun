@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin';
 
-export const addRegistration = registration => {
+export const addRegistration = (registration, isProduction) => {
   const firebasePrivateKey =
     process.env.NODE_ENV === 'production'
       ? Buffer.from(process.env.FIREBASE_PRIVATE_KEY, 'base64').toString(
@@ -22,11 +22,7 @@ export const addRegistration = registration => {
 
   return admin
     .firestore()
-    .collection(
-      process.env.NODE_ENV === 'production'
-        ? 'registrations'
-        : 'registrations_dev'
-    )
+    .collection(isProduction ? 'registrations' : 'registrations_dev')
     .add(registration)
     .then(ref => {
       return {
