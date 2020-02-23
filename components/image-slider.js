@@ -68,18 +68,18 @@ const ImageSlider = ({ images }) => {
             x: { type: 'spring', stiffness: 300, damping: 200 },
             opacity: { duration: 0.2 }
           }}
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={1}
-          onDragEnd={(e, { offset, velocity }) => {
-            const swipe = swipePower(offset.x, velocity.x);
+          // drag="x"
+          // dragConstraints={{ left: 0, right: 0 }}
+          // dragElastic={1}
+          // onDragEnd={(e, { offset, velocity }) => {
+          //   const swipe = swipePower(offset.x, velocity.x);
 
-            if (swipe < -swipeConfidenceThreshold) {
-              paginate(1);
-            } else if (swipe > swipeConfidenceThreshold) {
-              paginate(-1);
-            }
-          }}
+          //   if (swipe < -swipeConfidenceThreshold) {
+          //     paginate(1);
+          //   } else if (swipe > swipeConfidenceThreshold) {
+          //     paginate(-1);
+          //   }
+          // }}
         />
       </AnimatePresence>
       <Box

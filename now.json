@@ -11,7 +11,8 @@
     "STRIPE_PUBLIC_API_KEY": "pk_test_DxT4ScfTFOgqoKKB9T6CLqUJ",
     "STRIPE_SECRET_API_KEY": "@stripe_secret_api_key",
     "STRIPE_PUBLIC_API_KEY_PROD": "pk_live_4K0lKXLMvJJt6cSCpVN4w6Da",
-    "STRIPE_SECRET_API_KEY_PROD": "@stripe_secret_api_key_prod"
+    "STRIPE_SECRET_API_KEY_PROD": "@stripe_secret_api_key_prod",
+    "GA_TRACKING_ID": "UA-158947256-1"
   },
   "build": {
     "env": {
@@ -26,7 +27,8 @@
       "STRIPE_PUBLIC_API_KEY": "pk_test_DxT4ScfTFOgqoKKB9T6CLqUJ",
       "STRIPE_SECRET_API_KEY": "@stripe_secret_api_key",
       "STRIPE_PUBLIC_API_KEY_PROD": "pk_live_4K0lKXLMvJJt6cSCpVN4w6Da",
-      "STRIPE_SECRET_API_KEY_PROD": "@stripe_secret_api_key_prod"
+      "STRIPE_SECRET_API_KEY_PROD": "@stripe_secret_api_key_prod",
+      "GA_TRACKING_ID": "UA-158947256-1"
     }
   }
 }
