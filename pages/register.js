@@ -27,7 +27,6 @@ import { getCountData } from '../utils/charts';
 
 import Router from 'next/router';
 import axios from 'axios';
-import { sortBy } from 'lodash/collection';
 
 import { FaRegClipboard } from 'react-icons/fa';
 

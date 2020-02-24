@@ -6,7 +6,7 @@ const handler = async (req, res) => {
       res.json(data);
     })
     .catch(() => {
-      res.status(400);
+      res.status(400).send('');
     });
 };
 

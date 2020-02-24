@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import {
+  Button,
   Box,
   Heading,
   Flex,
@@ -14,6 +15,7 @@ import { FaRegMap, FaRegClock } from 'react-icons/fa';
 import Countdown from 'react-countdown';
 import Head from 'next/head';
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 
 const MapboxNoSSR = dynamic(
   () => import('../components/mapbox').then(mod => mod.Mapbox),
@@ -110,6 +112,19 @@ const HomePage = props => {
           paddingTop={3}
         >
           <Box textAlign="center">
+            <Flex display={['block', null, 'none']} m={2}>
+              <Link href="/register">
+                <Button
+                  width="100%"
+                  variantColor="purple"
+                  as="a"
+                  href="/register"
+                  fontWeight="bold"
+                >
+                  Register meow!
+                </Button>
+              </Link>
+            </Flex>
             <Heading fontSize="3xl" mb={4}>
               March 15th, 2020 @ Glenhaven Park
             </Heading>

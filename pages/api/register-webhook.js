@@ -118,7 +118,7 @@ const handler = async (req, res) => {
       res.json(ref);
     })
     .catch(() => {
-      res.status(400);
+      res.status(400).send('');
     });
 };
 
