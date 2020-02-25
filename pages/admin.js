@@ -10,18 +10,13 @@ import {
   Input
 } from '@chakra-ui/core';
 import Layout from '../components/layout';
-import withAuthUser from '../utils/pageWrappers/withAuthUser';
-import withAuthUserInfo from '../utils/pageWrappers/withAuthUserInfo';
 import { FaRegAddressBook } from 'react-icons/fa';
-import { useTable } from 'react-table';
+import { useTable, useGlobalFilter, useFilters } from 'react-table';
 import styled from '@emotion/styled';
 import axios from 'axios';
 import BarChart from '../components/bar-chart';
-import { get } from 'lodash/object';
 import { FaExternalLinkAlt } from 'react-icons/fa';
-import Router from 'next/router';
 import { getCountData } from '../utils/charts';
-import { sortBy } from 'lodash/collection';
 import React, { useState } from 'react';
 
 const TableStyles = styled.div`
@@ -55,6 +50,29 @@ const TableStyles = styled.div`
   }
 `;
 
+const GlobalFilter = ({
+  preGlobalFilteredRows,
+  globalFilter,
+  setGlobalFilter
+}) => {
+  const count = preGlobalFilteredRows.length;
+
+  return (
+    <Flex alignItems="center">
+      Search:{' '}
+      <Input
+        ml={1}
+        size="sm"
+        value={globalFilter || ''}
+        onChange={e => {
+          setGlobalFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
+        }}
+        placeholder={`${count} records...`}
+      />
+    </Flex>
+  );
+};
+
 function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
   const {
@@ -62,16 +80,37 @@ function Table({ columns, data }) {
     getTableBodyProps,
     headerGroups,
     rows,
-    prepareRow
-  } = useTable({
-    columns,
-    data
-  });
+    prepareRow,
+    preGlobalFilteredRows,
+    setGlobalFilter,
+    state
+  } = useTable(
+    {
+      columns,
+      data
+    },
+    useFilters,
+    useGlobalFilter
+  );
 
   // Render the UI for your table
   return (
     <table {...getTableProps()}>
       <thead>
+        <tr>
+          <th
+            colSpan={columns.length}
+            style={{
+              textAlign: 'left'
+            }}
+          >
+            <GlobalFilter
+              preGlobalFilteredRows={preGlobalFilteredRows}
+              globalFilter={state.globalFilter}
+              setGlobalFilter={setGlobalFilter}
+            />
+          </th>
+        </tr>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
@@ -96,8 +135,7 @@ function Table({ columns, data }) {
   );
 }
 
-const AdminPage = ({ AuthUserInfo, registrations = [] }) => {
-  const AuthUser = get(AuthUserInfo, 'AuthUser', null);
+const AdminPage = ({ registrations = [] }) => {
   const [password, setPassword] = useState(null);
 
   const columns = [
@@ -160,7 +198,7 @@ const AdminPage = ({ AuthUserInfo, registrations = [] }) => {
   );
 
   return (
-    <Layout AuthUser={AuthUser}>
+    <Layout>
       <Box>
         <Box
           px={10}
@@ -231,9 +269,6 @@ AdminPage.defaultProps = {
 };
 
 AdminPage.getInitialProps = async ctx => {
-  const AuthUserInfo = get(ctx, 'myCustomData.AuthUserInfo', null);
-  const AuthUser = get(AuthUserInfo, 'AuthUser', null);
-
   const registrations = await axios
     .get(
       '/api/registrations',
@@ -248,20 +283,7 @@ AdminPage.getInitialProps = async ctx => {
     )
     .then(res => res.data);
 
-  const redirectOnError = () => {
-    if (process.browser) {
-      Router.push('/');
-    } else {
-      ctx.res.writeHead(302, { Location: '/' });
-      ctx.res.end();
-    }
-  };
-
-  //   if (!AuthUser) {
-  //     return redirectOnError();
-  //   }
-
-  return { AuthUserInfo, registrations };
+  return { registrations };
 };
 
-export default withAuthUser(withAuthUserInfo(AdminPage));
+export default AdminPage;
