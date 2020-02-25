@@ -177,7 +177,7 @@ const AdminPage = ({ registrations = [] }) => {
         typeof value === 'number' ? (
           <Badge variantColor="green">${value}</Badge>
         ) : (
-          ''
+          '🤣'
         )
     },
     {
