@@ -31,6 +31,9 @@ export default function RegistrationForm() {
       values.donation = customDonationAmount;
     }
 
+    // shirts are sold out
+    values.shirtSize = 'none';
+
     checkout(values)
       .then(() => {
         setIsSubmitting(false);
@@ -74,13 +77,14 @@ export default function RegistrationForm() {
       </FormControl>
       <FormControl mb={4} isInvalid={errors.shirtSize}>
         <FormLabel htmlFor="shirtSize" as="legend">
-          T-Shirt <b>+$10</b>
+          T-Shirt <b>Sold Out! There might be a few available at the event.</b>
         </FormLabel>
         <Select
+          isDisabled={true}
           id="shirtSize"
           name="shirtSize"
           placeholder="Select Size"
-          ref={register({ required: true })}
+          ref={register({ required: false })}
           onChange={e => {
             if (e.target.value !== 'none') {
               setShirtAmount(10);

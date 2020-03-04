@@ -183,13 +183,16 @@ const AdminPage = ({ registrations = [] }) => {
     {
       Header: 'Stripe',
       accessor: 'stripeCustomerUrl',
-      Cell: ({ cell: { value } }) => (
-        <Flex align="center" justify="center">
-          <Link isExternal href={value}>
-            <Box as={FaExternalLinkAlt} color="black" />
-          </Link>
-        </Flex>
-      )
+      Cell: ({ cell: { value } }) =>
+        value ? (
+          <Flex align="center" justify="center">
+            <Link isExternal href={value}>
+              <Box as={FaExternalLinkAlt} color="black" />
+            </Link>
+          </Flex>
+        ) : (
+          ''
+        )
     }
   ];
 
