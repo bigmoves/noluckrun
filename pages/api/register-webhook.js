@@ -8,7 +8,7 @@ Congrats, ${firstName} ${lastName}! You are registered for the NLR 2020! 🎉
 </p>
 
 <p>
-You're signed up for the ${routeName} and ordered a size ${shirtSize} t-shirt.
+You're signed up for the ${routeName}!
 </p>
 
 <p>
