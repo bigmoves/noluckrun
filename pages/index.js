@@ -98,7 +98,7 @@ const HomePage = props => {
             p={3}
           >
             <Countdown
-              date={new Date('03/17/2020')}
+              date={new Date('03/15/2020')}
               renderer={countdownRenderer}
             />
           </Box>
