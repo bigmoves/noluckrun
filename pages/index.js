@@ -126,7 +126,12 @@ const HomePage = props => {
               </Link>
             </Flex>
             <Heading fontSize="3xl" mb={4}>
-              March 15th, 2020 @ Glenhaven Park
+              March 15th, 2020 @ Kate's House
+            </Heading>
+            <Heading fontSize="2xl" mb={4}>
+              <Link href="https://goo.gl/maps/BeT1TwEcsNbcP5x26">
+                8901 NE Eugene St, 97220
+              </Link>
             </Heading>
             <Stat mb={4}>
               <StatLabel fontWeight="bold">Check-in:</StatLabel>
