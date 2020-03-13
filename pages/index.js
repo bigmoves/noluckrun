@@ -97,10 +97,10 @@ const HomePage = props => {
             transform="skew(-5deg)"
             p={3}
           >
-            <Countdown
+            {/* <Countdown
               date={new Date('03/15/2020')}
               renderer={countdownRenderer}
-            />
+            /> */}
           </Box>
         </Box>
         <Box
@@ -113,7 +113,7 @@ const HomePage = props => {
         >
           <Box textAlign="center">
             <Flex display={['block', null, 'none']} m={2}>
-              <Link href="/register">
+              {/* <Link href="/register">
                 <Button
                   width="100%"
                   variantColor="purple"
@@ -123,17 +123,20 @@ const HomePage = props => {
                 >
                   Register meow!
                 </Button>
-              </Link>
+              </Link> */}
             </Flex>
             <Heading fontSize="3xl" mb={4}>
-              March 15th, 2020 @ Kate's House
+              Postponed until further notice due to COVID-19
             </Heading>
             <Heading fontSize="2xl" mb={4}>
-              <Link href="https://goo.gl/maps/BeT1TwEcsNbcP5x26">
-                8901 NE Eugene St, 97220
-              </Link>
+              If you have any questions, drop us a line on the contact page.
             </Heading>
-            <Stat mb={4}>
+            <Heading fontSize="2xl" mb={4}>
+              {/* <Link href="https://goo.gl/maps/BeT1TwEcsNbcP5x26">
+                8901 NE Eugene St, 97220
+              </Link> */}
+            </Heading>
+            {/* <Stat mb={4}>
               <StatLabel fontWeight="bold">Check-in:</StatLabel>
               <StatNumber> 9:30am</StatNumber>
             </Stat>
@@ -153,7 +156,7 @@ const HomePage = props => {
               <StatLabel fontWeight="bold">
                 ⚽️ Optional soccer game to follow! ⚽️
               </StatLabel>
-            </Stat>
+            </Stat> */}
           </Box>
           <Heading size="xl" display="flex" alignItems="center">
             Routes <Box ml={3} as={FaRegMap} />

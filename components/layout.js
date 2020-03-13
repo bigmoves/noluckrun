@@ -60,7 +60,7 @@ const Layout = ({ children }) => {
               Contact Us
             </Button>
           </Link>
-          <Link href="/register">
+          {/* <Link href="/register">
             <Button
               variantColor="purple"
               as="a"
@@ -69,7 +69,7 @@ const Layout = ({ children }) => {
             >
               Register
             </Button>
-          </Link>
+          </Link> */}
         </Box>
       </Flex>
       {children}
