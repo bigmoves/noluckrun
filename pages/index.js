@@ -6,7 +6,7 @@ import {
   Flex,
   Stat,
   StatLabel,
-  StatNumber
+  StatNumber,
 } from '@chakra-ui/core';
 import { get } from 'lodash/object';
 import Layout from '../components/layout';
@@ -18,9 +18,9 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 const MapboxNoSSR = dynamic(
-  () => import('../components/mapbox').then(mod => mod.Mapbox),
+  () => import('../components/mapbox').then((mod) => mod.Mapbox),
   {
-    ssr: false
+    ssr: false,
   }
 );
 
@@ -33,7 +33,7 @@ const countdownRenderer = ({ days, hours, minutes, seconds }) => {
   );
 };
 
-const HomePage = props => {
+const HomePage = (props) => {
   const { AuthUserInfo } = props;
   const AuthUser = get(AuthUserInfo, 'AuthUser', null);
 
@@ -52,7 +52,7 @@ const HomePage = props => {
     '/noluck-13.jpg',
     // '/noluck-14.jpg',
     // '/noluck-15.jpg',
-    '/noluck-16.jpg'
+    '/noluck-16.jpg',
   ];
 
   const [containerWidth, setContainerWidth] = useState(960 - 24);
@@ -113,7 +113,7 @@ const HomePage = props => {
         >
           <Box textAlign="center">
             <Flex display={['block', null, 'none']} m={2}>
-              {/* <Link href="/register">
+              <Link href="/register">
                 <Button
                   width="100%"
                   variantColor="purple"
@@ -123,7 +123,7 @@ const HomePage = props => {
                 >
                   Register meow!
                 </Button>
-              </Link> */}
+              </Link>
             </Flex>
             <Heading fontSize="3xl" mb={4}>
               Postponed until further notice due to COVID-19
@@ -132,9 +132,9 @@ const HomePage = props => {
               If you have any questions, drop us a line on the contact page.
             </Heading>
             <Heading fontSize="2xl" mb={4}>
-              {/* <Link href="https://goo.gl/maps/BeT1TwEcsNbcP5x26">
+              <Link href="https://goo.gl/maps/BeT1TwEcsNbcP5x26">
                 8901 NE Eugene St, 97220
-              </Link> */}
+              </Link>
             </Heading>
             {/* <Stat mb={4}>
               <StatLabel fontWeight="bold">Check-in:</StatLabel>
@@ -181,7 +181,7 @@ const HomePage = props => {
 };
 
 HomePage.defaultProps = {
-  AuthUserInfo: null
+  AuthUserInfo: null,
 };
 
 export default HomePage;
