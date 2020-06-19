@@ -132,9 +132,9 @@ const HomePage = (props) => {
               If you have any questions, drop us a line on the contact page.
             </Heading>
             <Heading fontSize="2xl" mb={4}>
-              {/* <Link href="https://goo.gl/maps/BeT1TwEcsNbcP5x26">
+              <Link href="https://goo.gl/maps/BeT1TwEcsNbcP5x26">
                 8901 NE Eugene St, 97220
-              </Link> */}
+              </Link>
             </Heading>
             {/* <Stat mb={4}>
               <StatLabel fontWeight="bold">Check-in:</StatLabel>
